@@ -11,12 +11,12 @@
     },
     {
       "id": 2,
-      "name": "Đế Bá",
-      "img": "http://res.cloudinary.com/namddph17471/image/upload/v1645070680/jz6wpnrrhtdcjtlku7rs.jpg",
-      "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit nesciunt sint doloremque, animi, excepturi soluta minima aliquam voluptatibus ducimus, accusantium dolor. Aut, repudiandae sapiente. Aspernatur dolor sed amet quaerat ratione.",
-      "price": 24000,
-      "quantity": 120,
-      "cateProductId": 2
+      "name": "vô thủy 2",
+      "img": "http://res.cloudinary.com/namddph17471/image/upload/v1645018406/snzxkozdw0lxzr2cfnc3.jpg",
+      "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit nesciunt sint doloremque, animi, excepturi soluta minima aliquam voluptatibus ducimus, accusantium dolor. Aut, repudiandae sapiente. Aspernatur dolor sed amet quaerat ratione.\n",
+      "price": 140000,
+      "quantity": 100,
+      "cateProductId": 1
     }
   ]
 }
