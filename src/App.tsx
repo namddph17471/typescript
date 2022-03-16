@@ -5,7 +5,15 @@ import ShowInfo from './components/ShowInfo'
 import type { ProductType } from './types/product'
 import axios from 'axios'
 import { list, remove } from './api/products'
-import { NavLink, Route, Routes } from 'react-router-dom'
+import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
+import WebsiteLayout from './layouts/WebsiteLayout'
+import Home from './pages/Home'
+import Product from './pages/Product'
+import AdminLayout from './layouts/AdminLayout'
+import Dashboard from './pages/Dashboard'
+import ManagerProduct from './pages/ManagerProduct'
+import News from './pages/News'
+import About from './pages/About'
 
 function App() {
 
@@ -52,9 +60,17 @@ function App() {
     </header>
     <main>
       <Routes>
-        <Route path='/' element={<h1>Home Page</h1> }></Route>
-        <Route path='products' element={<h1>Product Page</h1> }></Route>
-        <Route path='about' element={<h1>About Page</h1> }></Route>
+        <Route path='/' element={< WebsiteLayout />}>
+          <Route index element={< Home />} />
+          <Route path='products' element={< Product />} />
+          <Route path='news' element={< News />} />
+          <Route path='about' element={< About />} />
+        </Route>
+        <Route path='admin' element={< AdminLayout /> }>
+          <Route index element={< Navigate to="dashboard" />} />
+          <Route path='dashboard' element={< Dashboard  />} />
+          <Route path='product' element={< ManagerProduct  />} />
+        </Route>
       </Routes>
     </main>
     </div>
