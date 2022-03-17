@@ -1,4 +1,5 @@
 import React from 'react'
+import { NavLink } from 'react-router-dom'
 
 type Props = {}
 
@@ -10,16 +11,16 @@ const Header = (props: Props) => {
             <div className="flex justify-between items-center border-b-2 border-gray-100 py-1 ">
               <nav className=" md:flex space-x-10">
                 <div className="relative">
-                  <a href="/#/" className="text-base font-medium text-gray-500 hover:text-gray-900"> Trang chủ </a>
+                  <NavLink to="/" className="text-base font-medium text-gray-500 hover:text-gray-900"> Trang chủ </NavLink >
                 </div>
-                <a href="/#/news" className="text-base font-medium text-gray-500 hover:text-gray-900"> Tin Tức </a>
-                <a href="/#/products" className="text-base font-medium text-gray-500 hover:text-gray-900"> Sản phẩm </a>
+                <NavLink to="/news" className="text-base font-medium text-gray-500 hover:text-gray-900"> Tin Tức </NavLink >
+                <NavLink to="/products" className="text-base font-medium text-gray-500 hover:text-gray-900"> Sản phẩm </NavLink >
                 <div className="relative">
-                  <a href="/#/about" className="text-base font-medium text-gray-500 hover:text-gray-900"> Thông tin </a>
+                  <NavLink to="/about" className="text-base font-medium text-gray-500 hover:text-gray-900"> Thông tin </NavLink >
                 </div>
-                <a href="/#/cart" id="cart" className="text-base font-medium text-gray-500 hover:text-gray-900">
+                <NavLink to="/cart" id="cart" className="text-base font-medium text-gray-500 hover:text-gray-900">
                   <img className="h-[30px] w-auto " src="https://res.cloudinary.com/namddph17471/image/upload/v1645069905/add_to_cart_cart_shopping_cart_shopping_cart_icon_icon-1320073116171330767_xybur6.png"  />
-                </a>
+                </NavLink >
               </nav>
             </div>
           </div>
