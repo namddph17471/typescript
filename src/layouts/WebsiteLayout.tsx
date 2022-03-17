@@ -14,7 +14,7 @@ const WebsiteLayout = (props: Props) => {
             <Banner />         
         </header>
 
-        <main>
+        <main className='mt-3'>
             <Outlet />
         </main>
         <footer>
