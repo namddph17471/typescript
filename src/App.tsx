@@ -51,13 +51,13 @@ function App() {
         </tbody>
       </table> */}
       
-    <header>
+    {/* <header>
       <ul>
         <li><NavLink to="/">Home Page</NavLink></li>
         <li><NavLink to="/products">Product Page</NavLink></li>
         <li><NavLink to="/about">About Page</NavLink></li>
       </ul>
-    </header>
+    </header> */}
     <main>
       <Routes>
         <Route path='/' element={< WebsiteLayout />}>
