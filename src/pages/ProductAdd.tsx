@@ -1,6 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { ProductType } from "../types/product";
+import { v4 as uuidv4 } from 'uuid';
 type ProductAddProp = {
     onAdd:(product:ProductType)=>void
 }
@@ -9,6 +10,7 @@ type FormValues = {
     price: number,
   };
 const ProductAdd = (props: ProductAddProp) => {
+    const id = uuidv4()
     const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>();
     const navigate = useNavigate()
     const onSubmit:SubmitHandler<FormValues> = (data)=>{

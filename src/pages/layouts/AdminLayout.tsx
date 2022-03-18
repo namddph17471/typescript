@@ -11,7 +11,7 @@ const AdminLayout = (props: Props) => {
         <header>
             <HeaderAdmin/>
         </header>
-        <aside className='float-left h-[550px]'>
+        <aside className='float-left h-[640px]'>
             <MenuAdmin />
         </aside>
         <main>

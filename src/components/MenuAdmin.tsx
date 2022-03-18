@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom'
 
 const MenuAdmin = () => {
   return (
-    <div className=" p-3 text-white bg-[#212529] w-[280px] h-full  mr-[20px]" >
+    <div className=" p-3 text-white bg-[#212529] w-[280px] min-h-full  mr-[20px]" >
         <NavLink to="/" className="   me-md-auto text-white text-decoration-none">
             <span className="fs-4">Logo</span>
         </NavLink>
