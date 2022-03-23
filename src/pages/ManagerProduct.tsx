@@ -1,8 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { ProductType } from '../types/product'
 
 type ManagerProductType = {
-  data: ProductType[]
+  data: ProductType[],
+  onRemove:(id:number)=>void
 }
 
 const ManagerProduct = (props: ManagerProductType) => {
@@ -13,6 +15,7 @@ const ManagerProduct = (props: ManagerProductType) => {
                 <tr>
                     <th scope="col" className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>#</th>
                     <th scope="col" className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Name</th>
+                    <th scope="col" className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'>Price</th>
                     <th scope="col" className='px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider'></th>
                 </tr>
             </thead>
@@ -28,6 +31,15 @@ const ManagerProduct = (props: ManagerProductType) => {
                           <div className='text-sm text-gray-900'>
                             {item.name}
                           </div>
+                        </td>
+                        <td className='px-6 py-4 whitespace-nowrap'>
+                          <div className='text-sm text-gray-900'>
+                            {item.price}
+                          </div>
+                        </td>
+                        <td>
+                          <button className='border text-sm m-2 p-2 rounded' onClick={()=> props.onRemove(item.id)} >Remove</button>
+                          <Link to={`/admin/product/${item.id}/edit`}>Edit</Link>
                         </td>
                     </tr>
             })}

@@ -2,16 +2,16 @@
   "products": [
     {
       "id": 1,
-      "name": "vô thủy",
+      "name": "vô thủy đã sửa",
       "img": "http://res.cloudinary.com/namddph17471/image/upload/v1645018406/snzxkozdw0lxzr2cfnc3.jpg",
       "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit nesciunt sint doloremque, animi, excepturi soluta minima aliquam voluptatibus ducimus, accusantium dolor. Aut, repudiandae sapiente. Aspernatur dolor sed amet quaerat ratione.\n",
-      "price": 140000,
+      "price": "140",
       "quantity": 100,
       "cateProductId": 1
     },
     {
       "id": 2,
-      "name": "vô thủy 2",
+      "name": "vô thủy 2 sửa",
       "img": "http://res.cloudinary.com/namddph17471/image/upload/v1645018406/snzxkozdw0lxzr2cfnc3.jpg",
       "desc": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit nesciunt sint doloremque, animi, excepturi soluta minima aliquam voluptatibus ducimus, accusantium dolor. Aut, repudiandae sapiente. Aspernatur dolor sed amet quaerat ratione.\n",
       "price": 140000,
@@ -22,11 +22,6 @@
       "name": "Già Thiên",
       "price": "1111",
       "id": 3
-    },
-    {
-      "name": "sản phẩm 01",
-      "price": "4564",
-      "id": 4
     }
   ]
 }

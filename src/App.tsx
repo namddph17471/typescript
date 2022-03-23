@@ -4,7 +4,7 @@ import './App.css'
 import ShowInfo from './components/ShowInfo'
 import type { ProductType } from './types/product'
 import axios from 'axios'
-import { addProduct, list, remove } from './api/products'
+import { addProduct, list, remove, update } from './api/products'
 import { Navigate, NavLink, Route, Routes } from 'react-router-dom'
 import WebsiteLayout from './pages/layouts/WebsiteLayout'
 import Home from './pages/Home'
@@ -15,6 +15,7 @@ import ManagerProduct from './pages/ManagerProduct'
 import News from './pages/News'
 import About from './pages/About'
 import ProductAdd from './pages/ProductAdd'
+import ProductUpdate from './pages/ProductUpdate'
 
 function App() {
 
@@ -35,17 +36,14 @@ function App() {
     const {data} = await addProduct(product);
     SetProduct([...products,data])
   }
+  const handleUpdate = async(product:ProductType)=>{
+      console.log(product);
+      const {data} = await update(product);
+      console.log(data);
+      SetProduct(products.map(item => item.id == data.id?data : item))
+  }
   return (
     <div className="App">
-      
-      
-    {/* <header>
-      <ul>
-        <li><NavLink to="/">Home Page</NavLink></li>
-        <li><NavLink to="/products">Product Page</NavLink></li>
-        <li><NavLink to="/about">About Page</NavLink></li>
-      </ul>
-    </header> */}
     <main>
       <Routes>
         <Route path='/' element={< WebsiteLayout />}>
@@ -57,8 +55,11 @@ function App() {
         <Route path='admin' element={< AdminLayout /> }>
           <Route index element={< Navigate to="dashboard" />} />
           <Route path='dashboard' element={< Dashboard  />} />
-          <Route path='product' element={< ManagerProduct data={products} />} />
-          <Route path='/admin/product/add' element={< ProductAdd onAdd={handleAdd} />} />
+          <Route path='product'  >
+            <Route index element={< ManagerProduct onRemove={removeItem} data={products} />} />
+            <Route path='add' element={< ProductAdd onAdd={handleAdd} />} />
+            <Route path=':id/edit' element={< ProductUpdate onUpdate={handleUpdate} />} />
+          </Route>
         </Route>
       </Routes>
     </main>
