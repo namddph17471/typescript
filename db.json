@@ -28,5 +28,21 @@
       "price": "100",
       "id": 4
     }
+  ],
+  "users": [
+    {
+      "email": "user1@gmail.com",
+      "user_name": "tukhuyet",
+      "password": "123456",
+      "role": "0",
+      "id": 1
+    },
+    {
+      "email": "vothuy@gmail.com",
+      "user_name": "vothuy",
+      "password": "123456",
+      "role": "0",
+      "id": 2
+    }
   ]
 }

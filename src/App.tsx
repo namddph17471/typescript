@@ -18,6 +18,7 @@ import ProductAdd from './pages/ProductAdd'
 import ProductUpdate from './pages/ProductUpdate'
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
+import PrivateRouter from './components/PrivateRouter'
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
   return (
     <div className="App">
     <main>
+      <>
       <Routes>
         <Route path='/' element={< WebsiteLayout />}>
           <Route index element={< Home />} />
@@ -54,9 +56,9 @@ function App() {
           <Route path='news' element={< News />} />
           <Route path='about' element={< About />} />
           <Route path='signin' element={< Signin />} />
-          <Route path='signup' element={< Signup />} />
+          <Route path='signup' element={< Signup  />} />
         </Route>
-        <Route path='admin' element={< AdminLayout /> }>
+        <Route path='admin' element={<PrivateRouter> < AdminLayout />  </PrivateRouter >}>
           <Route index element={< Navigate to="dashboard" />} />
           <Route path='dashboard' element={< Dashboard  />} />
           <Route path='product'  >
@@ -65,7 +67,9 @@ function App() {
             <Route path=':id/edit' element={< ProductUpdate onUpdate={handleUpdate} />} />
           </Route>
         </Route>
+        
       </Routes>
+      </>
     </main>
     </div>
   )
