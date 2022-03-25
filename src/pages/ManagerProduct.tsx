@@ -4,7 +4,7 @@ import { ProductType } from '../types/product'
 
 type ManagerProductType = {
   data: ProductType[],
-  onRemove:(id:number)=>void
+  onRemove:(id: number)=>void
 }
 
 const ManagerProduct = (props: ManagerProductType) => {
@@ -30,7 +30,7 @@ const ManagerProduct = (props: ManagerProductType) => {
                             {index + 1}
                           </div>
                         </td>
-                        <td className='px-6 py-4 whitespace-nowrap'>
+                        <td className='px-6 py-4 whitespace-nowrap '>
                           <div className='text-sm text-gray-900'>
                             {item.name}
                           </div>

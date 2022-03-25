@@ -22,6 +22,11 @@
       "name": "Già Thiên",
       "price": "1000",
       "id": 3
+    },
+    {
+      "name": "sản phẩm 01 update",
+      "price": "100",
+      "id": 4
     }
   ]
 }
