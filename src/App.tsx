@@ -16,6 +16,8 @@ import News from './pages/News'
 import About from './pages/About'
 import ProductAdd from './pages/ProductAdd'
 import ProductUpdate from './pages/ProductUpdate'
+import Signin from './pages/Signin'
+import Signup from './pages/Signup'
 
 function App() {
 
@@ -51,6 +53,8 @@ function App() {
           <Route path='products' element={< Product />} />
           <Route path='news' element={< News />} />
           <Route path='about' element={< About />} />
+          <Route path='signin' element={< Signin />} />
+          <Route path='signup' element={< Signup />} />
         </Route>
         <Route path='admin' element={< AdminLayout /> }>
           <Route index element={< Navigate to="dashboard" />} />
