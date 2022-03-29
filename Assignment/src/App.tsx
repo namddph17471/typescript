@@ -11,7 +11,7 @@ import AdminLayout from './pages/layouts/AdminLayout'
 import Dashboard from './pages/Dashboard'
 import ManagerProduct from './pages/ManagerProduct'
 import { ProductType } from './types/product'
-import { list } from './api/products'
+import { list, remove } from './api/products'
 
 function App() {
   const[products,SetProduct] = useState<ProductType[]>([]);
