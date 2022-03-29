@@ -4,7 +4,7 @@ import { ProductType } from '../types/product'
 
 type ManagerProductType = {
   data: ProductType[],
-  onRemove:(id: number)=>void
+  onRemove:(id: string)=>void
 }
 
 const ManagerProduct = (props: ManagerProductType) => {
