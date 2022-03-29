@@ -11,8 +11,9 @@ import AdminLayout from './pages/layouts/AdminLayout'
 import Dashboard from './pages/Dashboard'
 import ManagerProduct from './pages/ManagerProduct'
 import { ProductType } from './types/product'
-import { addProduct, list, remove } from './api/products'
+import { addProduct, list, remove, update } from './api/products'
 import ProductAdd from './pages/ProductAdd'
+import ProductUpdate from './pages/ProductUpdate'
 
 function App() {
   const[products,SetProduct] = useState<ProductType[]>([]);
@@ -32,6 +33,12 @@ function App() {
       const {data} = await addProduct(product);
       SetProduct([...products,data])
     }
+    const handleUpdate = async(product:ProductType)=>{
+      console.log(product);
+      const {data} = await update(product);
+      console.log(data);
+      SetProduct(products.map(item => item._id == data._id?data : item))
+  }
   return (
     <div className="App">
         <Routes>
@@ -47,6 +54,7 @@ function App() {
             <Route path='products'  >
               <Route index element={< ManagerProduct onRemove={removeItem} data={products} />} />
               <Route path='add' element={< ProductAdd onAdd={handleAdd} />} />
+              <Route path=':id/edit' element={< ProductUpdate onUpdate={handleUpdate} />} />
             </Route>
           </Route>
         </Routes>

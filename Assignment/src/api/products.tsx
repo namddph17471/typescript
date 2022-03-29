@@ -13,3 +13,11 @@ export const addProduct = (product:ProductType) => {
     const url = '/products';
     return instance.post(url,product);
 }
+export const update = (product:ProductType) => {
+    const url = `/products/${product._id}`;
+    return instance.put(url,product);
+}
+export const read = (_id: number) => {
+    const url = `/products/${_id}`;
+    return instance.get(url);
+}
