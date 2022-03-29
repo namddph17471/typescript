@@ -7,6 +7,7 @@ type ProductUpdateProps = {
     onUpdate:(product:ProductType)=>void
 }
 type FormValues = {
+    id:number,
     name:string,
     price:number
 }
@@ -22,7 +23,7 @@ const ProductUpdate = (props: ProductUpdateProps) => {
         getProduct()
     },[])
     const onSubmit:SubmitHandler<FormValues> = data=>{
-        props.onUpdate(data);
+        props.onUpdate({...data,id});
         navigate("/admin/products")
     }
   return (
