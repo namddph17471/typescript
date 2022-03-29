@@ -1,10 +1,11 @@
 import React from 'react'
+import ProductList from '../components/ProductList'
 
-type Props = {}
-
-const Home = (props: Props) => {
+const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      < ProductList />
+    </div>
   )
 }
 
