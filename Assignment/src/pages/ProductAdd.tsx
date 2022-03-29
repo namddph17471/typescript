@@ -6,12 +6,12 @@ type ProductAddProp = {
     onAdd:(product:ProductType)=>void
 }
 type FormValues = {
-    _id:string,
+    _id:number,
     name: string,
     price: number,
   };
 const ProductAdd = (props: ProductAddProp) => {
-    const _id = uuidv4()
+    const _id = +uuidv4()
     const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
     const navigate = useNavigate()
     const onSubmit:SubmitHandler<FormValues> = (data)=>{

@@ -23,7 +23,7 @@ function App() {
     }
     getProducts()
   },[])
-  const removeItem= async (id:string)=>{
+  const removeItem= async (id:number)=>{
     const {data} =  await remove(id);
     data && SetProduct(products.filter(item => item._id !== id));
   
