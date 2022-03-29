@@ -1,8 +1,14 @@
 import React from 'react'
+import './../App.css'
 
-const Banner = () => {
+type Props = {}
+
+const Banner = (props: Props) => {
   return (
-    <div>Banner</div>
+    <div>
+      <div className="banner h-[200px] rounded-md mx-[30px]">
+      </div>
+    </div>
   )
 }
 
