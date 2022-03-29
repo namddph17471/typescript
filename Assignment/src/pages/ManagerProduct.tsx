@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { ProductType } from '../types/product'
 
 type ManagerProductType = {
-
+  data: ProductType[],
+  onRemove:(id: number)=>void
 }
 
 const ManagerProduct = (props: ManagerProductType) => {
@@ -22,7 +23,29 @@ const ManagerProduct = (props: ManagerProductType) => {
                 </tr>
             </thead>
             <tbody className='bg-white divide-y divide-gray-200'>
-            
+            {props.data && props.data.map((item, index) => {
+                return <tr key={index}>
+                        <td className='px-6 py-4 whitespace-nowrap'>
+                          <div className='text-sm text-gray-900'>
+                            {index + 1}
+                          </div>
+                        </td>
+                        <td className='px-6 py-4 whitespace-nowrap '>
+                          <div className='text-sm text-gray-900'>
+                            {item.name}
+                          </div>
+                        </td>
+                        <td className='px-6 py-4 whitespace-nowrap'>
+                          <div className='text-sm text-gray-900'>
+                            {item.price}
+                          </div>
+                        </td>
+                        <td>
+                          <button className='border font-medium text-base text-white m-2 p-2 rounded bg-red-500' onClick={()=> props.onRemove(item._id)} >Remove</button>
+                          <Link to={`/admin/products/${item._id}/edit`} className="bg-indigo-600 text-white p-2 rounded ">Edit</Link>
+                        </td>
+                    </tr>
+            })}
             
             </tbody>
       </table>
