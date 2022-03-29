@@ -1,25 +1,19 @@
 import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import {SubmitHandler, useForm} from "react-hook-form"
-import { signin } from '../api/users'
+import { signin } from '../api/auth'
+import { authenticate } from '../utils/localStorage'
 
-type Props = {}
 type FormInput={
     email:string,
     password:string
 }
-const Signin = (props: Props) => {
+const Signin = () => {
     const {register,handleSubmit,formState:{errors}} = useForm<FormInput>()
     const navigate = useNavigate()
     const onSubmit:SubmitHandler<FormInput>= async data =>{
-        try {
-            await signin(data)
-            localStorage.setItem('user',JSON.stringify(data))
-            navigate("/")
-        } catch (error) {
-            console.log("Lỗi")
-        }
-       
+        const {data: user } = await signin(data);
+        authenticate(user, () => navigate('/'))
     }
   return (
     <div className='w-[400px] mx-auto'>

@@ -11,7 +11,7 @@ const ManagerProduct = (props: ManagerProductType) => {
   return (
     <div className='mt-5'>
       <button className='p-2 bg-indigo-600 rounded text-white text-base font-medium'>
-        <Link to={`/admin/product/add`}>Add</Link>
+        <Link to={`/admin/products/add`}>Add</Link>
       </button>
         <table className='max-w-full divide-y divide-gray-200'>
             <thead className='bg-gray-50'>
@@ -41,8 +41,8 @@ const ManagerProduct = (props: ManagerProductType) => {
                           </div>
                         </td>
                         <td>
-                          <button className='border font-medium text-base text-white m-2 p-2 rounded bg-red-500' onClick={()=> props.onRemove(item.id)} >Remove</button>
-                          <Link to={`/admin/product/${item.id}/edit`} className="bg-indigo-600 text-white p-2 rounded ">Edit</Link>
+                          <button className='border font-medium text-base text-white m-2 p-2 rounded bg-red-500' onClick={()=> props.onRemove(item._id)} >Remove</button>
+                          <Link to={`/admin/products/${item._id}/edit`} className="bg-indigo-600 text-white p-2 rounded ">Edit</Link>
                         </td>
                     </tr>
             })}

@@ -1,25 +1,18 @@
 import React from 'react'
 import {  NavLink, useNavigate } from 'react-router-dom'
 import {SubmitHandler, useForm} from "react-hook-form"
-import { UserType } from '../types/user'
-import { signup } from '../api/users'
+import { signup } from '../api/auth'
 
-type SignupProps = {
-   
-}
 type FormInput = {
     email:string,
-    user_name:string,
-    password:string,
-    role:string
+    name:string,
+    password:string
 }
 
-const Signup = (props: SignupProps) => {
+const Signup = () => {
     const {register, handleSubmit, formState:{errors}} = useForm<FormInput>()
     const navigate = useNavigate()
     const onSubmit:SubmitHandler<FormInput> = async data =>{
-        console.log(data);
-        localStorage.setItem("user",JSON.stringify(data))
         await signup(data)
         navigate("/signin")
     }
@@ -33,13 +26,12 @@ const Signup = (props: SignupProps) => {
                 </div>
                 <div className="my-4 py-2">
                     <label className=" font-medium text-indigo-600 hover:text-indigo-500">User Name</label>
-                    <input type="text"   className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="User Name" {...register("user_name")} />
+                    <input type="text"   className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="User Name" {...register("name")} />
                 </div>
                 <div className="my-4 py-2">
                 <label  className=" font-medium text-indigo-600 hover:text-indigo-500 ">Password</label>
                 <input  type="password" autoComplete="current-password"  className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded  focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password"{...register("password")} />
                 </div>
-                <input type="hidden" value={0} {...register("role")} />
             </div>
             <div>
                 <div className="text-sm">

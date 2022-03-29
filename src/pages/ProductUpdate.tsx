@@ -23,7 +23,7 @@ const ProductUpdate = (props: ProductUpdateProps) => {
     },[])
     const onSubmit:SubmitHandler<FormValues> = data=>{
         props.onUpdate(data);
-        navigate("/admin/product")
+        navigate("/admin/products")
     }
   return (
     <div>

@@ -19,7 +19,7 @@ const MenuAdmin = () => {
             </NavLink>
             </li >
             <li className="mb-6">
-            <NavLink to="/admin/product" className="nav-link text-white">
+            <NavLink to="/admin/products" className="nav-link text-white">
                 Product
             </NavLink>
             </li>

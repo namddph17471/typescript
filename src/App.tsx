@@ -32,7 +32,7 @@ function App() {
   },[])
   const removeItem= async (id:number)=>{
   const {data} =  await remove(id);
-  data && SetProduct(products.filter(item => item.id !== id));
+  data && SetProduct(products.filter(item => item._id !== id));
 
   }
   const handleAdd= async(product:ProductType)=>{
@@ -43,7 +43,7 @@ function App() {
       console.log(product);
       const {data} = await update(product);
       console.log(data);
-      SetProduct(products.map(item => item.id == data.id?data : item))
+      SetProduct(products.map(item => item._id == data._id?data : item))
   }
   return (
     <div className="App">
@@ -61,7 +61,7 @@ function App() {
         <Route path='admin' element={<PrivateRouter><AdminLayout /></PrivateRouter>}>
           <Route index element={< Navigate to="dashboard" />} />
           <Route path='dashboard' element={< Dashboard  />} />
-          <Route path='product'  >
+          <Route path='products'  >
             <Route index element={< ManagerProduct onRemove={removeItem} data={products} />} />
             <Route path='add' element={< ProductAdd onAdd={handleAdd} />} />
             <Route path=':id/edit' element={< ProductUpdate onUpdate={handleUpdate} />} />

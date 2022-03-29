@@ -14,7 +14,7 @@ export const remove = (id: number) => {
     return instance.delete(url);
 }
 export const update = (product:ProductType) => {
-    const url = `/products/${product.id}`;
+    const url = `/products/${product._id}`;
     return instance.put(url,product);
 }
 export const read = (id: number) => {
