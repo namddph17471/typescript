@@ -7,7 +7,7 @@ const ShowInfo = (props:ShowInfoProp) => {
   return (
     <div>
       <h1>
-        {props.info.age}
+        
       </h1>
       <h1>
         {props.info.name}

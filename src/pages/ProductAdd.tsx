@@ -9,7 +9,7 @@ type FormValues = {
     price: number,
   };
 const ProductAdd = (props: ProductAddProp) => {
-    const { register, handleSubmit, watch, formState: { errors } } = useForm<FormValues>();
+    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
     const navigate = useNavigate()
     const onSubmit:SubmitHandler<FormValues> = (data)=>{
         props.onAdd(data);
