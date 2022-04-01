@@ -15,7 +15,6 @@ const About = (props: Props) => {
                     </div>
                     <div>
                       <div className="mt-10">
-                        {/* Decorative image grid */}
                         <div aria-hidden="true" className="pointer-events-none lg:absolute lg:inset-y-0 lg:max-w-7xl lg:mx-auto lg:w-full">
                           <div className="absolute transform sm:left-1/2 sm:top-0 sm:translate-x-8 lg:left-1/2 lg:top-1/2 lg:-translate-y-1/2 lg:translate-x-8">
                             <div className="flex items-center space-x-6 lg:space-x-8">
@@ -49,7 +48,7 @@ const About = (props: Props) => {
                             </div>
                           </div>
                         </div>
-                        <a href="/#/products" className="inline-block text-center bg-indigo-600 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-indigo-700">Shop Collection</a>
+                        <a href="/products" className="inline-block text-center bg-indigo-600 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-indigo-700">Shop Collection</a>
                       </div>
                     </div>
                   </div>
