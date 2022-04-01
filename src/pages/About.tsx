@@ -49,7 +49,7 @@ const About = (props: Props) => {
                             </div>
                           </div>
                         </div>
-                        <a href="/#/products" className="inline-block text-center bg-indigo-600 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-indigo-700">Shop Collection</a>
+                        <a href="/products" className="inline-block text-center bg-indigo-600 border border-transparent rounded-md py-3 px-8 font-medium text-white hover:bg-indigo-700">Shop Collection</a>
                       </div>
                     </div>
                   </div>
