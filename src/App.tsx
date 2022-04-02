@@ -16,6 +16,8 @@ import ProductAdd from './pages/ProductAdd'
 import ProductUpdate from './pages/ProductUpdate'
 import ProductList from './components/ProductList'
 import DetailProduct from './pages/DetailProduct'
+import Signin from './pages/Signin'
+import Signup from './pages/Signup'
 
 function App() {
   const[products,SetProduct] = useState<ProductType[]>([]);
@@ -36,9 +38,7 @@ function App() {
       SetProduct([...products,data])
     }
     const handleUpdate = async(product:ProductType)=>{
-      console.log(product);
       const {data} = await update(product);
-      console.log(data);
       SetProduct(products.map(item => item._id == data._id?data : item))
   }
   return (
@@ -53,6 +53,8 @@ function App() {
             <Route path='products' element={< Products />} />
             <Route path='news' element={< New />} />
             <Route path='about' element={< About />} />
+            <Route path='signin' element={<Signin/>} />
+            <Route path='signup' element={<Signup/>} />
           </Route>
           <Route path='admin' element={<AdminLayout />}>
             <Route index element={< Navigate to="dashboard" />} />
