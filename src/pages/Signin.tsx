@@ -13,7 +13,9 @@ const Signin = () => {
     const navigate = useNavigate()
     const onSubmit:SubmitHandler<FormInput>= async data =>{
         const {data: user } = await signin(data);
-        authenticate(user, () => navigate('/'))
+        localStorage.setItem('user', JSON.stringify(user))
+        // authenticate(user, () => navigate('/'))
+        navigate("/")
     }
   return (
     <div className='w-[400px] mx-auto'>
