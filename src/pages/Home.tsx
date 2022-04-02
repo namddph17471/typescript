@@ -1,10 +1,15 @@
 import React from 'react'
 import ProductList from '../components/ProductList'
+import { ProductType } from '../types/product'
 
-const Home = () => {
+type Props = {
+  data: ProductType[]
+}
+
+const Home = (props: Props) => {
   return (
     <div>
-      < ProductList />
+      <ProductList data={props.data}/>
     </div>
   )
 }

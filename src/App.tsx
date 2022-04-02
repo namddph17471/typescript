@@ -14,6 +14,8 @@ import { ProductType } from './types/product'
 import { addProduct, list, remove, update } from './api/products'
 import ProductAdd from './pages/ProductAdd'
 import ProductUpdate from './pages/ProductUpdate'
+import ProductList from './components/ProductList'
+import DetailProduct from './pages/DetailProduct'
 
 function App() {
   const[products,SetProduct] = useState<ProductType[]>([]);
@@ -43,7 +45,11 @@ function App() {
     <div className="App">
         <Routes>
           <Route path='/' element={<WebsiteLayout/>} >
-            <Route index element={< Home />} />
+            <Route index element={< Home data={products} />} />
+            <Route path='products' >
+              <Route index element={<Products/>} />
+              <Route path=':id'element={<DetailProduct/>} />
+            </Route>
             <Route path='products' element={< Products />} />
             <Route path='news' element={< New />} />
             <Route path='about' element={< About />} />
