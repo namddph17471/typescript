@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { getProduct } from '../redux/product/productSlice'
 import { ProductType } from '../types/product'
 
 type ManagerProductType = {
@@ -8,6 +10,13 @@ type ManagerProductType = {
 }
 
 const ManagerProduct = (props: ManagerProductType) => {
+  const dispatch = useDispatch()
+  const product = useSelector(data => {
+      return data.product.value
+  })
+  useEffect(()=>{
+      dispatch(getProduct())
+  },[])
   return (
     <div className='mt-5'>
       <button className='p-2 bg-indigo-600 rounded text-white text-base font-medium'>
@@ -23,7 +32,7 @@ const ManagerProduct = (props: ManagerProductType) => {
                 </tr>
             </thead>
             <tbody className='bg-white divide-y divide-gray-200'>
-            {props.data && props.data.map((item, index) => {
+            {product.map((item, index) => {
                 return <tr key={index}>
                         <td className='px-6 py-4 whitespace-nowrap'>
                           <div className='text-sm text-gray-900'>

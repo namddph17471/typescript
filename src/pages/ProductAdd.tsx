@@ -2,20 +2,19 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { ProductType } from "../types/product";
 import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from "react-redux";
+import { createProduct } from "../redux/product/productSlice";
 type ProductAddProp = {
     onAdd:(product:ProductType)=>void
 }
-type FormValues = {
-    _id:number,
-    name: string,
-    price: number,
-  };
-const ProductAdd = (props: ProductAddProp) => {
+
+const ProductAdd = ( )=> {
     const _id = +uuidv4()
-    const { register, handleSubmit, formState: { errors } } = useForm<FormValues>();
+    const dispatch = useDispatch()
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate()
-    const onSubmit:SubmitHandler<FormValues> = (data)=>{
-        props.onAdd({...data,_id});
+    const onSubmit = (data)=>{
+        dispatch(createProduct(data))
         navigate('/admin/products');
     }
   return (

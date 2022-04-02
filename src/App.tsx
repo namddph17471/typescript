@@ -61,7 +61,7 @@ function App() {
             <Route path='dashboard' element={< Dashboard  />} />
             <Route path='products'  >
               <Route index element={< ManagerProduct onRemove={removeItem} data={products} />} />
-              <Route path='add' element={< ProductAdd onAdd={handleAdd} />} />
+              <Route path='add' element={< ProductAdd  />} />
               <Route path=':id/edit' element={< ProductUpdate onUpdate={handleUpdate} />} />
             </Route>
           </Route>
