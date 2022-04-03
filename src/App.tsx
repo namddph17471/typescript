@@ -18,8 +18,11 @@ import ProductList from './components/ProductList'
 import DetailProduct from './pages/DetailProduct'
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
+import { useDispatch } from 'react-redux'
+import { removeProduct } from './redux/product/productSlice'
 
 function App() {
+  const dispatch = useDispatch()
   const[products,SetProduct] = useState<ProductType[]>([]);
   useEffect(()=>{
     const getProducts =  async ()=>{
@@ -28,11 +31,11 @@ function App() {
     }
     getProducts()
   },[])
-  const removeItem= async (id:number)=>{
-    const {data} =  await remove(id);
-    data && SetProduct(products.filter(item => item._id !== id));
-  
-    }
+  // const removeItem= async (id:number)=>{
+  //   // const {data} =  await remove(id);
+  //   // data && SetProduct(products.filter(item => item._id !== id));
+  //   dispatch(removeProduct(id))
+  //   }
     const handleAdd= async(product:ProductType)=>{
       const {data} = await addProduct(product);
       SetProduct([...products,data])
@@ -60,7 +63,7 @@ function App() {
             <Route index element={< Navigate to="dashboard" />} />
             <Route path='dashboard' element={< Dashboard  />} />
             <Route path='products'  >
-              <Route index element={< ManagerProduct onRemove={removeItem} data={products} />} />
+              <Route index element={< ManagerProduct  />} />
               <Route path='add' element={< ProductAdd  />} />
               <Route path=':id/edit' element={< ProductUpdate onUpdate={handleUpdate} />} />
             </Route>

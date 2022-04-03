@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getProduct } from '../redux/product/productSlice'
+import { getProduct, removeProduct } from '../redux/product/productSlice'
 import { ProductType } from '../types/product'
 
-type ManagerProductType = {
-  data: ProductType[],
-  onRemove:(id: number)=>void
-}
 
-const ManagerProduct = (props: ManagerProductType) => {
+
+const ManagerProduct = () => {
   const dispatch = useDispatch()
   const product = useSelector(data => {
       return data.product.value
@@ -17,6 +14,9 @@ const ManagerProduct = (props: ManagerProductType) => {
   useEffect(()=>{
       dispatch(getProduct())
   },[])
+  const onRemove =(id)=>{
+    dispatch(removeProduct(id))
+  }
   return (
     <div className='mt-5'>
       <button className='p-2 bg-indigo-600 rounded text-white text-base font-medium'>
@@ -50,7 +50,7 @@ const ManagerProduct = (props: ManagerProductType) => {
                           </div>
                         </td>
                         <td>
-                          <button className='border font-medium text-base text-white m-2 p-2 rounded bg-red-500' onClick={()=> props.onRemove(item._id)} >Remove</button>
+                          <button className='border font-medium text-base text-white m-2 p-2 rounded bg-red-500' onClick={()=> onRemove(item._id)} >Remove</button>
                           <Link to={`/admin/products/${item._id}/edit`} className="bg-indigo-600 text-white p-2 rounded ">Edit</Link>
                         </td>
                     </tr>
