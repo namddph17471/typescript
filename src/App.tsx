@@ -36,10 +36,10 @@ function App() {
   //   // data && SetProduct(products.filter(item => item._id !== id));
   //   dispatch(removeProduct(id))
   //   }
-    const handleAdd= async(product:ProductType)=>{
-      const {data} = await addProduct(product);
-      SetProduct([...products,data])
-    }
+    // const handleAdd= async(product:ProductType)=>{
+    //   const {data} = await addProduct(product);
+    //   SetProduct([...products,data])
+    // }
     const handleUpdate = async(product:ProductType)=>{
       const {data} = await update(product);
       SetProduct(products.map(item => item._id == data._id?data : item))
