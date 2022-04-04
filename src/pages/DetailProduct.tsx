@@ -27,11 +27,11 @@ const DetailProduct = (props: Props) => {
         </div>
         <div className=" mx-auto pt-10 pb-16 px-4 sm:px-6 lg:max-w-7xl lg:pt-16 lg:pb-24 lg:px-8 lg:grid lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8">
           <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
-            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">${product.name}</h1>
+            <h1 className="text-2xl font-extrabold tracking-tight text-gray-900 sm:text-3xl">{product.name}</h1>
           </div>
           <div className="mt-4 lg:mt-0 lg:row-span-3">
             <h2 className="sr-only">Product information</h2>
-            <p className="text-3xl text-gray-900">${product.price} VND</p>
+            <p className="text-3xl text-gray-900">{product.price} VND</p>
             <div className="mt-6">
               <h3 className="sr-only">Reviews</h3>
               <div className="flex items-center">
@@ -72,7 +72,7 @@ const DetailProduct = (props: Props) => {
             <div>
               <h3 className="sr-only">Description</h3>
               <div className="space-y-6">
-                <p className="text-base text-gray-900">${product.desc}</p>
+                <p className="text-base text-gray-900">{product.desc}</p>
               </div>
             </div>    
           </div>

@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
+import { read } from '../api/cateProduct'
+import { detaicateProduct } from '../redux/cateproductSlice'
 import { getProduct, removeProduct } from '../redux/productSlice'
 import { ProductType } from '../types/product'
 
@@ -10,6 +12,9 @@ const ManagerProduct = () => {
   const dispatch = useDispatch()
   const product = useSelector(data => {
       return data.product.value
+  })
+  const cateProduct = useSelector(data =>{
+    return data.cateProduct.value
   })
   useEffect(()=>{
       dispatch(getProduct())
@@ -60,6 +65,9 @@ const ManagerProduct = () => {
                               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Price
                               </th>
+                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Category
+                              </th>
                               <th scope="col" className="relative px-6 py-3">
                                 <span className="sr-only">Edit</span>
                               </th>
@@ -67,7 +75,7 @@ const ManagerProduct = () => {
                           </thead>
                           <tbody className="bg-white divide-y divide-gray-200">
                         {product.map((item,index)=>{
-                           return <tr>
+                           return <tr key={index +1 }>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="text-sm text-gray-900">{index + 1}</div>
                               </td>
@@ -83,6 +91,11 @@ const ManagerProduct = () => {
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="text-sm text-gray-900">{item.price}</div>
+                              </td>
+                              <td className="px-6 py-4 whitespace-nowrap">
+                                <div className="text-sm text-gray-900">
+                                  {item.cateProduct}
+                                </div>
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex space-x-2">
                               <button className='border font-medium text-base text-white m-2 p-2 rounded bg-red-500' onClick={()=> onRemove(item._id)} >Remove</button>

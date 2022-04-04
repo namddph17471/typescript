@@ -11,7 +11,7 @@ export const getcateProduct = createAsyncThunk(
 export const detaicateProduct = createAsyncThunk(
     "cateProduct/detailCateProduct",
     async (_id)=>{
-      const {data} =   await read(_id)
+      const {data} =  await read(_id)
       return data
     }
 )

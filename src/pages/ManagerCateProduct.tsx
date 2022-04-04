@@ -61,7 +61,7 @@ const MangerCateProduct = () => {
                           </thead>
                           <tbody className="bg-white divide-y divide-gray-200">
                         {product.map((item,index)=>{
-                           return <tr>
+                           return <tr key={index}>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="text-sm text-gray-900">{index + 1}</div>
                               </td>
@@ -77,7 +77,7 @@ const MangerCateProduct = () => {
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex space-x-2">
                               <button className='border font-medium text-base text-white m-2 p-2 rounded bg-red-500' onClick={()=> onRemove(item._id)} >Remove</button>
-                              <Link to={`/admin/products/${item._id}/edit`} className="border font-medium text-base text-white m-2 p-2 rounded bg-indigo-600">Edit</Link>
+                              <Link to={`/admin/cateProduct/${item._id}/edit`} className="border font-medium text-base text-white m-2 p-2 rounded bg-indigo-600">Edit</Link>
                               </td>
                             </tr>
                       })}

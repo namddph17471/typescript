@@ -23,6 +23,7 @@ import { removeProduct } from './redux/productSlice'
 import MangerCateProduct from './pages/ManagerCateProduct'
 import CateProductAdd from './pages/CateProductAdd'
 import CateProductEdit from './pages/CateProductEdit'
+import DetailCateProduct from './pages/DetailCateProduct'
 
 function App() {
   const dispatch = useDispatch()
@@ -51,11 +52,12 @@ function App() {
     <div className="App">
         <Routes>
           <Route path='/' element={<WebsiteLayout/>} >
-            <Route index element={< Home data={products} />} />
+            <Route index element={< Home  />} />
             <Route path='products' >
               <Route index element={<Products/>} />
               <Route path=':id'element={<DetailProduct/>} />
             </Route>
+            <Route path='cateProduct/:id' element={<DetailCateProduct/>} />
             <Route path='products' element={< Products />} />
             <Route path='news' element={< New />} />
             <Route path='about' element={< About />} />
