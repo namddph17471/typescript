@@ -7,14 +7,11 @@ type Props = {}
 
 const AdminLayout = (props: Props) => {
   return (
-    <div>
+    <div className=' '>
         <header>
             <HeaderAdmin/>
         </header>
-        <aside className='float-left h-[640px]'>
-            <MenuAdmin />
-        </aside>
-        <main>
+        <main className=' '>
             < Outlet />
         </main>
     </div>

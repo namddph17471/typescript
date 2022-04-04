@@ -18,6 +18,7 @@ const HeaderAdmin = (props: Props) => {
           <nav className="hidden md:flex space-x-10">
              <NavLink to="/" className="text-base font-medium text-white-500 hover:text-white-900"> Home  </NavLink >
              <NavLink to="/admin/products" className="text-base font-medium text-white-500 hover:text-white-900"> Product  </NavLink >
+             <NavLink to="/admin/cateProduct" className="text-base font-medium text-white-500 hover:text-white-900"> CateProduct  </NavLink >
              <NavLink to="/admin/new" className="text-base font-medium text-white-500 hover:text-white-900"> News  </NavLink >
              <NavLink to="/admin/user" className="text-base font-medium text-white-500 hover:text-white-900"> User  </NavLink >
           </nav>

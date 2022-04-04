@@ -16,7 +16,9 @@
     "react-hook-form": "^7.28.1",
     "react-redux": "^7.2.8",
     "react-router-dom": "^6.2.2",
-    "uuid": "^8.3.2"
+    "toastr": "^2.1.4",
+    "uuid": "^8.3.2",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/react": "^17.0.33",

@@ -19,7 +19,10 @@ import DetailProduct from './pages/DetailProduct'
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
 import { useDispatch } from 'react-redux'
-import { removeProduct } from './redux/product/productSlice'
+import { removeProduct } from './redux/productSlice'
+import MangerCateProduct from './pages/ManagerCateProduct'
+import CateProductAdd from './pages/CateProductAdd'
+import CateProductEdit from './pages/CateProductEdit'
 
 function App() {
   const dispatch = useDispatch()
@@ -65,7 +68,12 @@ function App() {
             <Route path='products'  >
               <Route index element={< ManagerProduct  />} />
               <Route path='add' element={< ProductAdd  />} />
-              <Route path=':id/edit' element={< ProductUpdate onUpdate={handleUpdate} />} />
+              <Route path=':id/edit' element={< ProductUpdate  />} />
+            </Route>
+            <Route path='cateProduct'>
+              <Route index element={<MangerCateProduct/>} />
+              <Route path='add' element={<CateProductAdd/>} />
+              <Route path=':id/edit' element={<CateProductEdit/>} />
             </Route>
           </Route>
         </Routes>
