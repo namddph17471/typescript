@@ -2,8 +2,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { ProductType } from "../types/product";
 import { v4 as uuidv4 } from 'uuid';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../redux/productSlice";
+import { useEffect } from "react";
+import { getcateProduct } from "../redux/cateproductSlice";
 type ProductAddProp = {
     onAdd:(product:ProductType)=>void
 }
@@ -13,7 +15,12 @@ const ProductAdd = ( )=> {
     
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate()
-    
+    const cateProduct = useSelector(data =>{
+        return data.cateProduct.value
+    })
+    useEffect(()=>{
+        dispatch(getcateProduct())
+    },[])
     const onSubmit = (data)=>{
         dispatch(createProduct(data))
         navigate('/admin/products');
@@ -51,6 +58,20 @@ const ProductAdd = ( )=> {
                             <div className="space-y-1 text-center">
                             <input  id="file-upload" type="file" className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md" />
                             </div>
+                        </div>
+                        <div>
+                        <div>
+                            <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                                Loại Hàng
+                            </label>
+                            
+                            <select id="cateProductId" className="mt-1 p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" {...register('cateProduct')}>
+                            {cateProduct.map(item => {
+                               return <option value={item._id}  className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" >{item.name}</option >
+                            })}
+                            </select>
+                        </div>
+
                         </div>
                         <div>
                             <label htmlFor="about" className="block text-sm font-medium text-gray-700">
