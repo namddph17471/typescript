@@ -74,7 +74,7 @@ const ManagerProduct = () => {
                             </tr>
                           </thead>
                           <tbody className="bg-white divide-y divide-gray-200">
-                        {product.map((item,index)=>{
+                        { product && product.map((item,index)=>{
                            return <tr key={index +1 }>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="text-sm text-gray-900">{index + 1}</div>
