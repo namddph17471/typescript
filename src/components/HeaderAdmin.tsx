@@ -1,9 +1,9 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 
-type Props = {}
 
-const HeaderAdmin = (props: Props) => {
+
+const HeaderAdmin = () => {
   return (
     <div>
       <div className="relative bg-[#212529] text-white mt-3">

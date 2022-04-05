@@ -6,22 +6,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../redux/productSlice";
 import { useEffect } from "react";
 import { getcateProduct } from "../redux/cateproductSlice";
-type ProductAddProp = {
-    onAdd:(product:ProductType)=>void
+
+type FormInput = {
+    _id:number,
+    name:string,
+    price:number,
+    cateProduct:number
 }
 const ProductAdd = ( )=> {
     const _id = +uuidv4()
     const dispatch = useDispatch()
     
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm<FormInput>();
     const navigate = useNavigate()
-    const cateProduct = useSelector(data =>{
+    const cateProduct= useSelector(data =>{
         return data.cateProduct.value
     })
     useEffect(()=>{
         dispatch(getcateProduct())
     },[])
-    const onSubmit = (data)=>{
+    const onSubmit:SubmitHandler<FormInput>  = (data)=>{
         dispatch(createProduct(data))
         navigate('/admin/products');
     }

@@ -1,15 +1,20 @@
 import React, { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { read } from '../api/cateProduct'
 import { updatecateProduct } from '../redux/cateproductSlice'
+import { useAppDispatch } from '../redux/hook'
+import { CateProductType } from '../types/cateProduct'
 
-
+type FormInput = {
+    _id:number,
+    name:string
+}
 
 const CateProductEdit = () => {
   const _id = useParams().id;
-  const{register,handleSubmit,formState:{errors},reset} = useForm()
+  const{register,handleSubmit,formState:{errors},reset} = useForm<FormInput>()
   const navigate = useNavigate();
   const dispatch = useDispatch()
   useEffect(()=>{
@@ -20,7 +25,7 @@ const CateProductEdit = () => {
     getCateProduct()
 },[])
 
-  const onSubmit = (data) =>{
+  const onSubmit:SubmitHandler<FormInput> = (data) =>{
       dispatch(updatecateProduct(data))
       navigate("/admin/cateProduct")
   }

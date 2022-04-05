@@ -11,8 +11,8 @@ type FormInput = {
 
 const Signup = () => {
     const navigate = useNavigate()
-    const {register,handleSubmit,formState:{errors}} = useForm<FormInput>()
-    const onSubmit:SubmitHandler<FormInput> = async (data)=>{
+    const {register,handleSubmit,formState:{errors}} = useForm()
+    const onSubmit= async (data)=>{
         await signup(data);
         navigate('/signin')
     }

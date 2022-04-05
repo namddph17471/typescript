@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { read } from '../api/products'
+import { useAppSelector } from '../redux/hook'
 import { detaiProduct } from '../redux/productSlice'
-import { ProductType } from '../types/product'
+// import { ProductType } from '../types/product'
 
-type Props = {}
+// type Props = {}
 
-const DetailProduct = (props: Props) => {
+const DetailProduct = () => {
   const _id = useParams().id
   const dispatch = useDispatch()
   const product = useSelector(data => {

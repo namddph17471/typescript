@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { read } from '../api/cateProduct'
 import { detaicateProduct } from '../redux/cateproductSlice'
 import { getProduct, removeProduct } from '../redux/productSlice'
-import { ProductType } from '../types/product'
+// import { ProductType } from '../types/product'
 
 
 
@@ -19,7 +19,7 @@ const ManagerProduct = () => {
   useEffect(()=>{
       dispatch(getProduct())
   },[])
-  const onRemove =(id)=>{
+  const onRemove =(id:number)=>{
     dispatch(removeProduct(id))
   }
   return (

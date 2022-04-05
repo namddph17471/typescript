@@ -1,4 +1,4 @@
-import { ProductType } from '../types/product';
+import { CateProductType } from '../types/cateProduct';
 import { isAuthenticate } from '../utils/localStorage';
 import instance from './instance';
 
@@ -7,11 +7,11 @@ export const list = () => {
     const url = '/cateProduct';
     return instance.get(url);
 }
-export const remove = (id: number) => {
+export const remove = (id:number) => {
     const url = `/cateProduct/${id}`;
     return instance.delete(url);
 }
-export const addCateProduct = (product) => {
+export const addCateProduct = (product:CateProductType) => {
     const url = `/cateProduct/${user._id}`;
     return instance.post(url,product,{
         headers:{
@@ -19,11 +19,11 @@ export const addCateProduct = (product) => {
         }
     });
 }
-export const update = (product) => {
+export const update = (product:CateProductType) => {
     const url = `/cateProduct/${product._id}`;
     return instance.put(url,product);
 }
-export const read = (_id: number) => {
+export const read = (_id:number) => {
     const url = `/cateProduct/${_id}`;
     return instance.get(url);
 }

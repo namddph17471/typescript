@@ -11,6 +11,7 @@ import AdminLayout from './pages/layouts/AdminLayout'
 import Dashboard from './pages/Dashboard'
 import ManagerProduct from './pages/ManagerProduct'
 import { ProductType } from './types/product'
+
 import { addProduct, list, remove, update } from './api/products'
 import ProductAdd from './pages/ProductAdd'
 import ProductUpdate from './pages/ProductUpdate'
@@ -26,15 +27,15 @@ import CateProductEdit from './pages/CateProductEdit'
 import DetailCateProduct from './pages/DetailCateProduct'
 
 function App() {
-  const dispatch = useDispatch()
-  const[products,SetProduct] = useState<ProductType[]>([]);
-  useEffect(()=>{
-    const getProducts =  async ()=>{
-      const {data} = await list()
-      SetProduct(data)
-    }
-    getProducts()
-  },[])
+  // const dispatch = useDispatch()
+  // const[products,SetProduct] = useState([]);
+  // useEffect(()=>{
+  //   const getProducts =  async ()=>{
+  //     const {data} = await list()
+  //     SetProduct(data)
+  //   }
+  //   getProducts()
+  // },[])
   // const removeItem= async (id:number)=>{
   //   // const {data} =  await remove(id);
   //   // data && SetProduct(products.filter(item => item._id !== id));
@@ -44,10 +45,10 @@ function App() {
     //   const {data} = await addProduct(product);
     //   SetProduct([...products,data])
     // }
-    const handleUpdate = async(product:ProductType)=>{
-      const {data} = await update(product);
-      SetProduct(products.map(item => item._id == data._id?data : item))
-  }
+    // const handleUpdate = async(product)=>{
+    //   const {data} = await update(product);
+    //   SetProduct(products.map(item => item._id == data._id?data : item))
+  // }
   return (
     <div className="App">
         <Routes>

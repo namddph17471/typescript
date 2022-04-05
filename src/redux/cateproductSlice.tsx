@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { number } from "yup";
 import { addCateProduct, list, read, remove, update } from "../api/cateProduct";
+import { CateProductType } from "../types/cateProduct";
 
 export const getcateProduct = createAsyncThunk(
     "cateProduct/getCateProduct",
@@ -10,28 +12,28 @@ export const getcateProduct = createAsyncThunk(
 )
 export const detaicateProduct = createAsyncThunk(
     "cateProduct/detailCateProduct",
-    async (_id)=>{
+    async (_id:number)=>{
       const {data} =  await read(_id)
       return data
     }
 )
 export const createcateProduct = createAsyncThunk(
     "cateProduct/createCateProduct",
-    async (cateProduct)=>{
+    async (cateProduct:CateProductType)=>{
         const {data} = await addCateProduct(cateProduct)
         return data
     }
 )
 export const removecateProduct = createAsyncThunk(
     "cateProduct/removeCateProduct",
-    async (id)=>{
+    async (id:number)=>{
         const {data} = await remove (id)
         return data
     }
 )
 export const updatecateProduct = createAsyncThunk(
     "cateProduct/updateCateProduct",
-    async (cateProduct)=>{
+    async (cateProduct:CateProductType)=>{
         const {data} = await update (cateProduct)
         return data
     }
@@ -39,7 +41,9 @@ export const updatecateProduct = createAsyncThunk(
 const cateProductSlice = createSlice({
     name:"catecateProduct",
     initialState:{
-        value:[]
+        value:[{
+            _id:number
+        }]
     },
     reducers:{
         createCateProduct(state,action){
@@ -49,7 +53,7 @@ const cateProductSlice = createSlice({
             state.value = state.value.map(item => item._id == action.payload._id?action.payload:item)
         },
         removeCateProduct(state,action){
-            state.value.filter(item => item.id !== action.payload._id)
+            state.value.filter(item => item._id !== action.payload._id)
         }
     },
     extraReducers:(builder)=>{

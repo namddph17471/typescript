@@ -10,7 +10,7 @@ import { ProductType } from '../types/product'
 type ProductUpdateProps = {
 }
 type FormValues = {
-    id:number,
+    _id:number,
     name:string,
     price:number,
     cateProduct:number
@@ -31,7 +31,7 @@ const ProductUpdate = () => {
         getProduct()
     },[])
     const dispatch = useDispatch()
-    const onSubmit = data=>{
+    const onSubmit:SubmitHandler<FormValues> = data=>{
         dispatch(updateProduct(data))
         navigate("/admin/products")
     }

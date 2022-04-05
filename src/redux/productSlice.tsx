@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { number, string } from "yup";
 import { addProduct, list, read, remove, update } from "../api/products";
+import { ProductType } from "../types/product";
 
+
+  
 export const getProduct = createAsyncThunk(
     "product/getProduct",
     async ()=>{
@@ -10,28 +14,28 @@ export const getProduct = createAsyncThunk(
 )
 export const detaiProduct = createAsyncThunk(
     "product/detailProduct",
-    async (_id)=>{
+    async (_id:number)=>{
       const {data} =   await read(_id)
       return data
     }
 )
 export const createProduct = createAsyncThunk(
     "product/createProduct",
-    async (product)=>{
+    async (product:ProductType)=>{
         const {data} = await addProduct(product)
         return data
     }
 )
 export const removeProduct = createAsyncThunk(
     "product/removeProduct",
-    async (id)=>{
+    async (id:number)=>{
         const {data} = await remove (id)
         return data
     }
 )
 export const updateProduct = createAsyncThunk(
     "product/updateProduct",
-    async (product)=>{
+    async (product:ProductType)=>{
         const {data} = await update (product)
         return data
     }
@@ -39,7 +43,15 @@ export const updateProduct = createAsyncThunk(
 const productSlice = createSlice({
     name:"product",
     initialState:{
-        value:[]
+        value:[{
+            _id:number,
+            product:{
+            name:string,
+            price:number,
+            cateProduct:number
+            }
+            
+        }]
     },
     reducers:{
         createProduct(state,action){
@@ -49,7 +61,7 @@ const productSlice = createSlice({
             state.value = state.value.map(item => item._id == action.payload._id?action.payload:item)
         },
         removeProduct(state,action){
-            state.value.filter(item => item.id !== action.payload._id)
+            state.value.filter(item => item._id !== action.payload._id)
         }
     },
     extraReducers:(builder)=>{

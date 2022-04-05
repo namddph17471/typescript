@@ -1,7 +1,7 @@
 import React from 'react'
 import CateProductList from '../components/CateProductList'
 import ProductList from '../components/ProductList'
-import { ProductType } from '../types/product'
+// import { ProductType } from '../types/product'
 
 
 

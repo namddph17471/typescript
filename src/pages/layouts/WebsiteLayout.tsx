@@ -4,9 +4,9 @@ import Banner from '../../components/Banner'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
 
-type Props = {}
+// type Props = {}
 
-const WebsiteLayout = (props: Props) => {
+const WebsiteLayout = () => {
   return (
     <div>
         <header>

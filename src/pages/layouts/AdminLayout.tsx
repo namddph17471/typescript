@@ -3,9 +3,9 @@ import { Outlet } from 'react-router-dom'
 import HeaderAdmin from '../../components/HeaderAdmin'
 import MenuAdmin from '../../components/MenuAdmin'
 
-type Props = {}
+// type Props = {}
 
-const AdminLayout = (props: Props) => {
+const AdminLayout = () => {
   return (
     <div className=' '>
         <header>

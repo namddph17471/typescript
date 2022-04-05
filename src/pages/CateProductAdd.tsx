@@ -3,15 +3,20 @@ import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from "react-redux";
 import { createcateProduct } from "../redux/cateproductSlice";
+import { CateProductType } from "../types/cateProduct";
 
+type FormInput = {
+    _id:number,
+    name:string
+}
 const CateProductAdd = () => {
     const _id = +uuidv4()
     const dispatch = useDispatch()
     
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm<FormInput>();
     const navigate = useNavigate()
     
-    const onSubmit = (data)=>{
+    const onSubmit:SubmitHandler<FormInput> = (data)=>{
         dispatch(createcateProduct(data))
         navigate('/admin/cateProduct');
     }

@@ -1,8 +1,7 @@
 import React from 'react'
 
-type Props = {}
 
-const New = (props: Props) => {
+const New = () => {
   return (
     <div>New</div>
   )
