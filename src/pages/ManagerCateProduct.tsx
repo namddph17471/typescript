@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import { getcateProduct, removecateProduct } from '../redux/cateproductSlice'
+import { CateProductType } from '../types/cateProduct'
 
 const MangerCateProduct = () => {
   const dispatch = useDispatch()
@@ -11,7 +12,7 @@ const MangerCateProduct = () => {
   useEffect(()=>{
       dispatch(getcateProduct())
   },[])
-  const onRemove =(id)=>{
+  const onRemove =(id:number)=>{
     dispatch(removecateProduct(id))
   }
   return (
@@ -60,7 +61,7 @@ const MangerCateProduct = () => {
                             </tr>
                           </thead>
                           <tbody className="bg-white divide-y divide-gray-200">
-                        {product.map((item,index)=>{
+                        {product.map((item:CateProductType,index:number)=>{
                            return <tr key={index}>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="text-sm text-gray-900">{index + 1}</div>

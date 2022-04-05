@@ -2,20 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { read } from '../api/products'
-import { useAppSelector } from '../redux/hook'
-import { detaiProduct } from '../redux/productSlice'
-// import { ProductType } from '../types/product'
-
-// type Props = {}
+import { ProductType } from '../types/product'
 
 const DetailProduct = () => {
   const _id = useParams().id
-  const dispatch = useDispatch()
-  const product = useSelector(data => {
-      return data.product.value
-  })
+  const[product,SetProduct] = useState<ProductType[]>([]);
   useEffect(()=>{
-      dispatch(detaiProduct(_id))
+    const getProducts =  async ()=>{
+      const {data} = await read(_id)
+      SetProduct(data)
+    }
+    getProducts()
   },[])
   
   return (

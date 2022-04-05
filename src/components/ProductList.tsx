@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { getProduct } from '../redux/productSlice'
@@ -13,6 +13,7 @@ const ProductList = () => {
   useEffect(()=>{
       dispatch(getProduct())
   },[])
+  console.log(product)
   return (
         <div>
             <div className="bg-white">

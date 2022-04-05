@@ -1,4 +1,4 @@
 export type CateProductType = {
-    _id:number,
+    _id:any,
     name:string
 }

@@ -4,6 +4,7 @@ import { Link, NavLink } from 'react-router-dom'
 import { read } from '../api/cateProduct'
 import { detaicateProduct } from '../redux/cateproductSlice'
 import { getProduct, removeProduct } from '../redux/productSlice'
+import { ProductType } from '../types/product'
 // import { ProductType } from '../types/product'
 
 
@@ -74,7 +75,7 @@ const ManagerProduct = () => {
                             </tr>
                           </thead>
                           <tbody className="bg-white divide-y divide-gray-200">
-                        { product && product.map((item,index)=>{
+                        { product && product.map((item:ProductType,index:number)=>{
                            return <tr key={index +1 }>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="text-sm text-gray-900">{index + 1}</div>

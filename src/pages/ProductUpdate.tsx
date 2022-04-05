@@ -6,6 +6,7 @@ import { number } from 'yup'
 import { read, update } from '../api/products'
 import { getcateProduct } from '../redux/cateproductSlice'
 import { updateProduct } from '../redux/productSlice'
+import { CateProductType } from '../types/cateProduct'
 import { ProductType } from '../types/product'
 type ProductUpdateProps = {
 }
@@ -74,7 +75,7 @@ const ProductUpdate = () => {
                             </label>
                             
                             <select id="cateProductId" className="mt-1 p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" {...register('cateProduct')}>
-                            {cateProduct.map(item => {
+                            {cateProduct.map((item:CateProductType) => {
                                return <option value={item._id}  className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded " >{item.name}</option>
                             })}
                             </select>

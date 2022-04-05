@@ -6,13 +6,13 @@ import { signup } from '../api/auth'
 type FormInput = {
     email:string,
     name:string,
-    password:string
+    password:string|number
 }
 
 const Signup = () => {
     const navigate = useNavigate()
-    const {register,handleSubmit,formState:{errors}} = useForm()
-    const onSubmit= async (data)=>{
+    const {register,handleSubmit,formState:{errors}} = useForm<FormInput>()
+    const onSubmit:SubmitHandler<FormInput>= async (data)=>{
         await signup(data);
         navigate('/signin')
     }

@@ -7,7 +7,7 @@ export const list = () => {
     const url = '/cateProduct';
     return instance.get(url);
 }
-export const remove = (id:number) => {
+export const remove = (id:any) => {
     const url = `/cateProduct/${id}`;
     return instance.delete(url);
 }
@@ -23,7 +23,7 @@ export const update = (product:CateProductType) => {
     const url = `/cateProduct/${product._id}`;
     return instance.put(url,product);
 }
-export const read = (_id:number) => {
+export const read = (_id:any) => {
     const url = `/cateProduct/${_id}`;
     return instance.get(url);
 }

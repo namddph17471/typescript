@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../redux/productSlice";
 import { useEffect } from "react";
 import { getcateProduct } from "../redux/cateproductSlice";
+import { CateProductType } from "../types/cateProduct";
 
 type FormInput = {
     _id:number,
@@ -70,7 +71,7 @@ const ProductAdd = ( )=> {
                             </label>
                             
                             <select id="cateProductId" className="mt-1 p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" {...register('cateProduct')}>
-                            {cateProduct.map(item => {
+                            {cateProduct.map((item:CateProductType) => {
                                return <option value={item._id}  className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" >{item.name}</option >
                             })}
                             </select>

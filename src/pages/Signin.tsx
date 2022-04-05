@@ -3,12 +3,15 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import {SubmitHandler,useForm} from 'react-hook-form'
 import { signin } from '../api/auth'
 
-
+type FormInput={
+    email:string,
+    password:string|number
+}
 
 const Signin = () => {
     const navigate = useNavigate()
-    const {register,handleSubmit,formState:{errors}} = useForm()
-    const onSubmit= async (data)=>{
+    const {register,handleSubmit,formState:{errors}} = useForm<FormInput>()
+    const onSubmit:SubmitHandler<FormInput>= async (data)=>{
         const {data: user } = await signin(data);
         localStorage.setItem('user', JSON.stringify(user))
         navigate("/")

@@ -12,13 +12,6 @@ export const getProduct = createAsyncThunk(
       return data
     }
 )
-export const detaiProduct = createAsyncThunk(
-    "product/detailProduct",
-    async (_id:number)=>{
-      const {data} =   await read(_id)
-      return data
-    }
-)
 export const createProduct = createAsyncThunk(
     "product/createProduct",
     async (product:ProductType)=>{
@@ -28,7 +21,7 @@ export const createProduct = createAsyncThunk(
 )
 export const removeProduct = createAsyncThunk(
     "product/removeProduct",
-    async (id:number)=>{
+    async (id:any)=>{
         const {data} = await remove (id)
         return data
     }
@@ -66,9 +59,6 @@ const productSlice = createSlice({
     },
     extraReducers:(builder)=>{
         builder.addCase(getProduct.fulfilled, (state,action)=>{
-            state.value = action.payload
-        })
-        builder.addCase(detaiProduct.fulfilled, (state,action)=>{
             state.value = action.payload
         })
         builder.addCase(createProduct.fulfilled,(state,action)=>{

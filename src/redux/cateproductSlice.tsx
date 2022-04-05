@@ -12,7 +12,7 @@ export const getcateProduct = createAsyncThunk(
 )
 export const detaicateProduct = createAsyncThunk(
     "cateProduct/detailCateProduct",
-    async (_id:number)=>{
+    async (_id:any)=>{
       const {data} =  await read(_id)
       return data
     }
@@ -26,7 +26,7 @@ export const createcateProduct = createAsyncThunk(
 )
 export const removecateProduct = createAsyncThunk(
     "cateProduct/removeCateProduct",
-    async (id:number)=>{
+    async (id:any)=>{
         const {data} = await remove (id)
         return data
     }
