@@ -1,28 +1,37 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {useForm, SubmitHandler} from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { number } from 'yup'
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
 import { read, update } from '../api/products'
 import { getcateProduct } from '../redux/cateproductSlice'
 import { updateProduct } from '../redux/productSlice'
 import { CateProductType } from '../types/cateProduct'
 import { ProductType } from '../types/product'
+import { uploadFile } from '../utils'
 type ProductUpdateProps = {
 }
 type FormValues = {
     _id:number,
     name:string,
     price:number,
+    desc:string,
+    image:string,
     cateProduct:number
 }
 const ProductUpdate = () => {
     const _id = useParams().id;
+    const [preview, setPreview] = useState<string>();
     const{register,handleSubmit,formState:{errors},reset} = useForm<FormValues>()
     const navigate = useNavigate();
     const cateProduct = useSelector(data =>{
         return data.cateProduct.value
     })
+    const handlePreview = (e: any) => {
+        setPreview(URL.createObjectURL(e.target.files[0]));
+    }
     useEffect(()=>{
         dispatch(getcateProduct())
         const getProduct = async ()=>{
@@ -32,9 +41,18 @@ const ProductUpdate = () => {
         getProduct()
     },[])
     const dispatch = useDispatch()
-    const onSubmit:SubmitHandler<FormValues> = data=>{
-        dispatch(updateProduct(data))
-        navigate("/admin/products")
+    const onSubmit:SubmitHandler<FormValues> = async data=>{
+        try {
+            if (typeof data.image === "object" && data.image.length) {
+                data.image = await uploadFile(data.image[0]);
+            }
+            dispatch(updateProduct(data))
+            toastr.success("Cập nhật SP thành công");
+            navigate("/admin/products")
+        } catch (error: any) {
+            toastr.error(error.response.data.error.message || error.response.data.message);
+        }
+       
     }
   return (
     <div>
@@ -61,12 +79,22 @@ const ProductUpdate = () => {
                             {errors.name && errors.name.type ==="minLength" && <span className="text-red-500">Ít Nhất 5 Ký tự</span>} 
                             </div>
                         </div>
+                        <div className="col-span-3 ">
+                            <label className="block text-sm font-medium text-gray-700">Xem trước ảnh</label>
+                            <div className="mt-1 h-[500px]">
+                                <img
+                                    src={ preview || "https://res.cloudinary.com/namddph17471/image/upload/v1645490263/no-thumbnail-medium-16315289445371324098298-0-0-620-992-crop-16315296413801134506614_vc8xjb.png"}
+                                    alt="Preview Image"
+                                    className="h-full w-full object-cover rounded-md"
+                                />
+                            </div>
+                        </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700">
                             Ảnh
                             </label>
                             <div className="space-y-1 text-center">
-                            <input  id="file-upload" type="file" className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md" />
+                            <input  onChange={e => handlePreview(e)} id="file-upload" type="file" className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md"{...register('image')} />
                             </div>
                         </div>
                         <div>
@@ -104,7 +132,7 @@ const ProductUpdate = () => {
                             Nội dung
                             </label>
                             <div className="mt-1">
-                            <textarea   className=" p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"  ></textarea>
+                            <textarea   className=" p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" {...register("desc")} />
                             </div>
                         </div>
                         </div>

@@ -1,22 +1,28 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
 import { ProductType } from "../types/product";
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
 import { createProduct } from "../redux/productSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getcateProduct } from "../redux/cateproductSlice";
 import { CateProductType } from "../types/cateProduct";
+import { uploadFile } from "../utils";
 
 type FormInput = {
     _id:number,
     name:string,
     price:number,
+    desc:string,
+    image:string,
     cateProduct:number
 }
 const ProductAdd = ( )=> {
     const _id = +uuidv4()
     const dispatch = useDispatch()
+    const [preview, setPreview] = useState<string>();
     
     const { register, handleSubmit, formState: { errors } } = useForm<FormInput>();
     const navigate = useNavigate()
@@ -26,9 +32,21 @@ const ProductAdd = ( )=> {
     useEffect(()=>{
         dispatch(getcateProduct())
     },[])
-    const onSubmit:SubmitHandler<FormInput>  = (data)=>{
-        dispatch(createProduct(data))
-        navigate('/admin/products');
+    const handlePreview = (e: any) => {
+        setPreview(URL.createObjectURL(e.target.files[0]));
+    }
+    const onSubmit:SubmitHandler<FormInput>  = async (data)=>{
+        try {
+            const url= await uploadFile(data.image[0]);
+            data.image = url,
+            dispatch(createProduct(data))
+            toastr.success("Thêm sản phẩm thành công")
+            setPreview("");
+            navigate('/admin/products');
+        } catch (error:any) {
+            toastr.error(error)
+        }
+        
     }
   return (
     <div className="">
@@ -56,13 +74,24 @@ const ProductAdd = ( )=> {
                             {errors.name && errors.name.type ==="minLength" && <span className="text-red-500">Ít Nhất 5 Ký tự</span>} 
                             </div>
                         </div>
+                        <div className="col-span-3 ">
+                            <label className="block text-sm font-medium text-gray-700">Xem trước ảnh</label>
+                            <div className="mt-1 h-[500px]">
+                                <img
+                                    src={ preview || "https://res.cloudinary.com/namddph17471/image/upload/v1645490263/no-thumbnail-medium-16315289445371324098298-0-0-620-992-crop-16315296413801134506614_vc8xjb.png"}
+                                    alt="Preview Image"
+                                    className="h-full w-full object-cover rounded-md"
+                                />
+                            </div>
+                        </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700">
                             Ảnh
                             </label>
                             <div className="space-y-1 text-center">
-                            <input  id="file-upload" type="file" className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md" />
+                            <input  onChange={e => handlePreview(e)} id="file-upload" type="file" className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md"{...register('image',{required:true})} />
                             </div>
+                            {errors.image && errors.image.type ==="required" && <span className="text-red-500">Không được để trống</span>}
                         </div>
                         <div>
                         <div>
@@ -70,10 +99,12 @@ const ProductAdd = ( )=> {
                                 Loại Hàng
                             </label>
                             
-                            <select id="cateProductId" className="mt-1 p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" {...register('cateProduct')}>
+                            <select id="cateProductId" defaultValue="" className="mt-1 p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" {...register('cateProduct',{required:true})}>
+                                <option value="">--Chọn Loại Hàng--</option>
                             {cateProduct.map((item:CateProductType) => {
                                return <option value={item._id}  className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" >{item.name}</option >
                             })}
+                            {errors.cateProduct && errors.cateProduct.type ==="required" && <span className="text-red-500">Không được để trống</span>}
                             </select>
                         </div>
 
@@ -89,20 +120,14 @@ const ProductAdd = ( )=> {
                             {errors.price && errors.price.type ==="min" && <span className="text-red-500">Phải lớn hơn 0</span>}
                             </div>
                         </div>
-                        <div>
-                            <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                            Số Lượng
-                            </label>
-                            <div className="mt-1">
-                            <input  className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Số Lượng" />
-                            </div>
-                        </div>
+            
                         <div>
                             <label htmlFor="about" className="block text-sm font-medium text-gray-700">
                             Nội dung
                             </label>
                             <div className="mt-1">
-                            <textarea   className=" p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"  ></textarea>
+                            <textarea   className=" p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" {...register('desc',{required:true,minLength:5})}/>
+                            {errors.desc && errors.desc.type ==="required" && <span className="text-red-500">Không được để trống</span>}
                             </div>
                         </div>
                         </div>

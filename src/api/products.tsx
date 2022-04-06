@@ -20,8 +20,12 @@ export const addProduct = (product:ProductType) => {
     });
 }
 export const update = (product:ProductType) => {
-    const url = `/products/${product._id}`;
-    return instance.put(url,product);
+    const url = `/products/${product._id}/${user._id}`;
+    return instance.put(url,product,{
+        headers:{
+            "Authorization": `Bearer ${token}`
+        }
+    });
 }
 export const read = (_id:any) => {
     const url = `/products/${_id}`;
