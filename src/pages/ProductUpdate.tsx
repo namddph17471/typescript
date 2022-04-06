@@ -47,10 +47,10 @@ const ProductUpdate = () => {
                 data.image = await uploadFile(data.image[0]);
             }
             dispatch(updateProduct(data))
-            toastr.success("Cập nhật SP thành công");
+            toastr.success("Cập nhật  thành công");
             navigate("/admin/products")
         } catch (error: any) {
-            toastr.error(error.response.data.error.message || error.response.data.message);
+            toastr.error(error.response.data.message)
         }
        
     }

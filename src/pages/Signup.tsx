@@ -2,6 +2,8 @@ import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import {SubmitHandler,useForm} from 'react-hook-form'
 import { signup } from '../api/auth'
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
 
 type FormInput = {
     email:string,
@@ -13,8 +15,14 @@ const Signup = () => {
     const navigate = useNavigate()
     const {register,handleSubmit,formState:{errors}} = useForm<FormInput>()
     const onSubmit:SubmitHandler<FormInput>= async (data)=>{
-        await signup(data);
+        try {
+            await signup(data);
         navigate('/signin')
+        toastr.success("Đăng ký thành công")
+        } catch (error:any) {
+            toastr.error(error.response.data.message)
+        }
+        
     }
   return (
     <div className='w-[400px] mx-auto'>
@@ -22,16 +30,24 @@ const Signup = () => {
             <div className="rounded">
                 <div className="my-4 py-2">
                     <label className=" font-medium text-indigo-600 hover:text-indigo-500">Email address</label>
-                    <input  type="email"   className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded  focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address"{...register("email")} />
+                    <input  type="email"   className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded  focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address"{...register("email",{required:true,minLength:5})} />
+                    {errors.email && errors.email.type ==="required" && <span className="text-red-500">Không được để trống</span>}
+                    {errors.email && errors.email.type ==="minLength" && <span className="text-red-500">Không được ít hơn 5 ký tự</span>}
+                
                 </div>
                 <div className="my-4 py-2">
                     <label className=" font-medium text-indigo-600 hover:text-indigo-500">User Name</label>
-                    <input type="text"   className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="User Name" {...register("name")} />
+                    <input type="text"   className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="User Name" {...register("name",{required:true})} />
+                    {errors.name && errors.name.type ==="required" && <span className="text-red-500">Không được để trống</span>}
                 </div>
                 <div className="my-4 py-2">
                 <label  className=" font-medium text-indigo-600 hover:text-indigo-500 ">Password</label>
-                <input  type="password" autoComplete="current-password"  className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded  focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password"{...register("password")} />
+                <input  type="password" autoComplete="current-password"  className="appearance-none  relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded  focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password"{...register("password",{required:true,minLength:5})} />
+                {errors.password && errors.password.type ==="minLength" && <span className="text-red-500">Không được ít hơn 5 ký tự</span>}
+                {errors.password && errors.password.type ==="required" && <span className="text-red-500">Không được để trống</span>}
+                
                 </div>
+
             </div>
             <div>
                 <div className="text-sm">

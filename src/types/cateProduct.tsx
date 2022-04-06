@@ -1,4 +1,5 @@
 export type CateProductType = {
     _id:any,
-    name:string
+    name:string,
+    image:string
 }

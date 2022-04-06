@@ -4,21 +4,37 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from "react-redux";
 import { createcateProduct } from "../redux/cateproductSlice";
 import { CateProductType } from "../types/cateProduct";
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
+import { useState } from "react";
+import { uploadFile } from "../utils";
 
 type FormInput = {
     _id:number,
-    name:string
+    name:string,
+    image:string
 }
 const CateProductAdd = () => {
     const _id = +uuidv4()
     const dispatch = useDispatch()
-    
+    const [preview, setPreview] = useState<string>();
     const { register, handleSubmit, formState: { errors } } = useForm<FormInput>();
     const navigate = useNavigate()
-    
-    const onSubmit:SubmitHandler<FormInput> = (data)=>{
-        dispatch(createcateProduct(data))
-        navigate('/admin/cateProduct');
+    const handlePreview = (e: any) => {
+        setPreview(URL.createObjectURL(e.target.files[0]));
+    }
+    const onSubmit:SubmitHandler<FormInput> =async (data)=>{
+        try {
+            const url= await uploadFile(data.image[0]);
+            data.image = url,
+            dispatch(createcateProduct(data))
+            setPreview("")
+            navigate('/admin/cateProduct');
+            toastr.success("Thêm danh mục sản phẩm thành công")
+        } catch (error:any) {
+            toastr.error(error.response.data.error)
+        }
+        
     }
   return (
     <div className="">
@@ -46,13 +62,24 @@ const CateProductAdd = () => {
                             {errors.name && errors.name.type ==="minLength" && <span className="text-red-500">Ít Nhất 5 Ký tự</span>} 
                             </div>
                         </div>
+                        <div className="col-span-3 ">
+                            <label className="block text-sm font-medium text-gray-700">Xem trước ảnh</label>
+                            <div className="mt-1 h-[500px]">
+                                <img
+                                    src={ preview || "https://res.cloudinary.com/namddph17471/image/upload/v1645490263/no-thumbnail-medium-16315289445371324098298-0-0-620-992-crop-16315296413801134506614_vc8xjb.png"}
+                                    alt="Preview Image"
+                                    className="h-full w-full object-cover rounded-md"
+                                />
+                            </div>
+                        </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700">
                             Ảnh
                             </label>
                             <div className="space-y-1 text-center">
-                            <input  id="file-upload" type="file" className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md" />
+                            <input  onChange={e => handlePreview(e)} id="file-upload" type="file" className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md"{...register('image',{required:true})} />
                             </div>
+                            {errors.image && errors.image.type ==="required" && <span className="text-red-500">Không được để trống</span>}
                         </div>
                         <div>
                             <label htmlFor="about" className="block text-sm font-medium text-gray-700">

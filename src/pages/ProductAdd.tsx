@@ -44,7 +44,7 @@ const ProductAdd = ( )=> {
             setPreview("");
             navigate('/admin/products');
         } catch (error:any) {
-            toastr.error(error)
+            toastr.error(error.response.data.message)
         }
         
     }

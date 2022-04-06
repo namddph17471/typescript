@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -6,17 +6,25 @@ import { read } from '../api/cateProduct'
 import { updatecateProduct } from '../redux/cateproductSlice'
 import { useAppDispatch } from '../redux/hook'
 import { CateProductType } from '../types/cateProduct'
+import { uploadFile } from "../utils";
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
 
 type FormInput = {
     _id:number,
-    name:string
+    name:string,
+    image:string
 }
 
 const CateProductEdit = () => {
   const _id = useParams().id;
+  const [preview, setPreview] = useState<string>();
   const{register,handleSubmit,formState:{errors},reset} = useForm<FormInput>()
   const navigate = useNavigate();
   const dispatch = useDispatch()
+  const handlePreview = (e: any) => {
+    setPreview(URL.createObjectURL(e.target.files[0]));
+}
   useEffect(()=>{
     const getCateProduct = async ()=>{
         const {data} = await read(_id);
@@ -25,9 +33,18 @@ const CateProductEdit = () => {
     getCateProduct()
 },[])
 
-  const onSubmit:SubmitHandler<FormInput> = (data) =>{
-      dispatch(updatecateProduct(data))
-      navigate("/admin/cateProduct")
+  const onSubmit:SubmitHandler<FormInput> = async (data) =>{
+      try {
+        if (typeof data.image === "object" && data.image.length) {
+            data.image = await uploadFile(data.image[0]);
+        }
+        dispatch(updatecateProduct(data))
+        navigate("/admin/cateProduct")
+        toastr.success("Cập nhật thành công")
+      } catch (error:any) {
+          toastr.error(error.response.data.error)
+      }
+      
   }
   return (
     <div className="">
@@ -55,13 +72,24 @@ const CateProductEdit = () => {
                             {errors.name && errors.name.type ==="minLength" && <span className="text-red-500">Ít Nhất 5 Ký tự</span>} 
                             </div>
                         </div>
+                        <div className="col-span-3 ">
+                            <label className="block text-sm font-medium text-gray-700">Xem trước ảnh</label>
+                            <div className="mt-1 h-[500px]">
+                                <img
+                                    src={ preview || "https://res.cloudinary.com/namddph17471/image/upload/v1645490263/no-thumbnail-medium-16315289445371324098298-0-0-620-992-crop-16315296413801134506614_vc8xjb.png"}
+                                    alt="Preview Image"
+                                    className="h-full w-full object-cover rounded-md"
+                                />
+                            </div>
+                        </div>
                         <div>
                             <label className="block text-sm font-medium text-gray-700">
                             Ảnh
                             </label>
                             <div className="space-y-1 text-center">
-                            <input  id="file-upload" type="file" className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md" />
+                            <input  onChange={e => handlePreview(e)} id="file-upload" type="file" className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md"{...register('image',{required:true})} />
                             </div>
+                            {errors.image && errors.image.type ==="required" && <span className="text-red-500">Không được để trống</span>}
                         </div>
                         <div>
                             <label htmlFor="about" className="block text-sm font-medium text-gray-700">

@@ -3,6 +3,6 @@ export type ProductType = {
     name: string,
     price:number,
     desc:string,
-    image:number,
+    image:string,
     cateProduct:number
 }
