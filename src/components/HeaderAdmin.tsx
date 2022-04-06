@@ -1,9 +1,17 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { isAuthenticate } from '../utils/localStorage'
 
 
 
 const HeaderAdmin = () => {
+  const {user} = isAuthenticate()
+  const navigate = useNavigate()
+  const handleLogout = ()=>{
+    localStorage.removeItem("user")
+    toastr.success("Bạn đăng xuất thành công")
+    navigate("/signin")
+  }
   return (
     <div>
       <div className="relative bg-[#212529] text-white mt-3">
@@ -22,10 +30,18 @@ const HeaderAdmin = () => {
              <NavLink to="/admin/new" className="text-base font-medium text-white-500 hover:text-white-900"> News  </NavLink >
              <NavLink to="/admin/user" className="text-base font-medium text-white-500 hover:text-white-900"> User  </NavLink >
           </nav>
-          <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-             <NavLink to="#" className="whitespace-nowrap text-base font-medium text-white-500 hover:text-white-900"> Sign in  </NavLink >
-             <NavLink to="#" className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up  </NavLink >
-          </div>
+          {user && (
+            <>
+             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
+               <li className="list-none whitespace-nowrap text-base font-medium text-white-500 hover:text-white-900">
+                   <Link to={user.role ? '/admin' : '/'}>Hello, {user.name}</Link>
+               </li>
+               <li className="cursor-pointer ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700">
+                 <button onClick={handleLogout}>Logout</button>
+               </li>
+             </div>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -1,9 +1,18 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
-
-
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { isAuthenticate } from '../utils/localStorage'
+import toastr from "toastr";
+import "toastr/build/toastr.min.css";
 
 const Header = () => {
+  const {user} =isAuthenticate();
+  const navigate = useNavigate()
+  const handleLogout = ()=>{
+    localStorage.removeItem("user")
+    toastr.success("Bạn đăng xuất thành công")
+    navigate("/signin")
+  }
+  // console.log(user)
   return (
     <div>
         <div className="relative bg-white">
@@ -24,8 +33,27 @@ const Header = () => {
                 </NavLink >
               </nav>
               <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                <NavLink to="/signin" className="whitespace-nowrap text-base font-medium text-white-500 hover:text-white-900"> Sign in  </NavLink >
-                <NavLink to="/signup" className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"> Sign up  </NavLink >
+              {user && (
+                <>
+                    <li className="list-none whitespace-nowrap text-base font-medium text-white-500 hover:text-white-900">
+                      <Link to={user.role ? '/admin' : '/'}>Hello, {user.name}</Link>
+                  </li>
+                  <li className="cursor-pointer ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700">
+                    <button onClick={handleLogout}>Logout</button>
+                  </li>
+                </>
+                  
+              )}
+              {!user &&(
+                <>
+                <li className="list-none whitespace-nowrap text-base font-medium text-white-500 hover:text-white-900">
+                    <Link to="/signin">Đăng nhập</Link>
+                </li>
+                <li className="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                    <Link to="/signup">Đăng ký</Link>
+                </li>
+              </>
+              )}
               </div>
             </div>
           </div>
