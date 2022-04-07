@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
 import { read } from '../api/cateProduct'
 import { detaicateProduct } from '../redux/cateproductSlice'
+import { useAppDispatch, useAppSelector } from '../redux/hook'
 import { getProduct, removeProduct } from '../redux/productSlice'
 import { ProductType } from '../types/product'
 // import { ProductType } from '../types/product'
@@ -20,7 +21,7 @@ const ManagerProduct = () => {
   const onRemove =(id:number)=>{
     dispatch(removeProduct(id))
   }
-  console.log(product.product)
+  
   return (
         <div>
           <header className="bg-white shadow">

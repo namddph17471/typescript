@@ -29,6 +29,7 @@ const ProductAdd = ( )=> {
     const cateProduct= useSelector(data =>{
         return data.cateProduct.value
     })
+    console.log(cateProduct)
     useEffect(()=>{
         dispatch(getcateProduct())
     },[])
