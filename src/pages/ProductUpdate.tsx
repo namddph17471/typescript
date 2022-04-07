@@ -7,23 +7,23 @@ type ProductUpdateProps = {
     onUpdate:(product:ProductType)=>void
 }
 type FormValues = {
-    id:number,
+    id:any,
     name:string,
     price:number
 }
 const ProductUpdate = (props: ProductUpdateProps) => {
-    const {id} = useParams();
+    const _id = useParams().id;
     const{register,handleSubmit,formState:{errors},reset} = useForm<FormValues>()
     const navigate = useNavigate();
     useEffect(()=>{
         const getProduct = async ()=>{
-            const {data} = await read(id);
+            const {data} = await read(_id);
             reset(data)
         }
         getProduct()
     },[])
     const onSubmit:SubmitHandler<FormValues> = data=>{
-        props.onUpdate({...data,id});
+        props.onUpdate({...data,_id});
         navigate("/admin/products")
     }
   return (

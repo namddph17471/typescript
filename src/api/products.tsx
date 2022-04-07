@@ -15,7 +15,7 @@ export const addProduct = (product:ProductType) => {
         }
     });
 }
-export const remove = (id: number) => {
+export const remove = (id: any) => {
     const url = `/products/${id}`;
     return instance.delete(url);
 }
@@ -23,7 +23,7 @@ export const update = (product:ProductType) => {
     const url = `/products/${product._id}`;
     return instance.put(url,product);
 }
-export const read = (id: number) => {
+export const read = (id: any) => {
     const url = `/products/${id}`;
     return instance.get(url);
 }

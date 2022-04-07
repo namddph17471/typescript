@@ -2,7 +2,6 @@ import React from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import {SubmitHandler, useForm} from "react-hook-form"
 import { signin } from '../api/auth'
-import { authenticate } from '../utils/localStorage'
 
 type FormInput={
     email:string,

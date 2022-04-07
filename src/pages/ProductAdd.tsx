@@ -6,7 +6,7 @@ type ProductAddProp = {
     onAdd:(product:ProductType)=>void
 }
 type FormValues = {
-    _id:number,
+    _id:any,
     name: string,
     price: number,
   };
