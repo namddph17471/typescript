@@ -4,5 +4,5 @@ export type ProductType = {
     price:number,
     desc:string,
     image:string,
-    cateProduct:number
+    cateProductId:any
 }

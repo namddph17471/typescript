@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { read } from '../api/products'
+import ProductRelated from '../components/ProductRelated'
 import { ProductType } from '../types/product'
 
 const DetailProduct = () => {
@@ -14,7 +15,6 @@ const DetailProduct = () => {
     }
     getProduct()
   },[])
-  
   return (
     <div>
       <main>
@@ -76,7 +76,7 @@ const DetailProduct = () => {
           </div>
         </div>
       </main>
-
+      <ProductRelated  cateProductId={product?.cateProductId._id} />
     </div>
     
   )

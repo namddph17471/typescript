@@ -14,15 +14,13 @@ const ManagerProduct = () => {
   const product = useSelector(data => {
       return data.product.value
   })
-  const cateProduct = useSelector(data =>{
-    return data.cateProduct.value
-  })
   useEffect(()=>{
       dispatch(getProduct())
   },[])
   const onRemove =(id:number)=>{
     dispatch(removeProduct(id))
   }
+  console.log(product.product)
   return (
         <div>
           <header className="bg-white shadow">
@@ -75,7 +73,7 @@ const ManagerProduct = () => {
                             </tr>
                           </thead>
                           <tbody className="bg-white divide-y divide-gray-200">
-                        { product && product.map((item:ProductType,index:number)=>{
+                        { product.product && product.product.map((item:ProductType,index:number)=>{
                            return <tr key={index +1 }>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="text-sm text-gray-900">{index + 1}</div>
@@ -95,7 +93,7 @@ const ManagerProduct = () => {
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap">
                                 <div className="text-sm text-gray-900">
-                                  {item.cateProduct}
+                                  {item.cateProductId?.name}
                                 </div>
                               </td>
                               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex space-x-2">

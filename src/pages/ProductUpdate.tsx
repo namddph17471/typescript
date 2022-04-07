@@ -19,7 +19,7 @@ type FormValues = {
     price:number,
     desc:string,
     image:string,
-    cateProduct:number
+    cateProductId:any
 }
 const ProductUpdate = () => {
     const _id = useParams().id;
@@ -102,10 +102,11 @@ const ProductUpdate = () => {
                                 Loại Hàng
                             </label>
                             
-                            <select id="cateProductId" className="mt-1 p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" {...register('cateProduct')}>
+                            <select id="cateProductId" className="mt-1 p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" {...register('cateProductId')}>
                             {cateProduct.map((item:CateProductType) => {
                                return <option value={item._id}  className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded " >{item.name}</option>
                             })}
+                            {errors.cateProductId && errors.cateProductId.type ==="required" && <span className="text-red-500">Không được để trống</span>}
                             </select>
                         </div>
                         <div>

@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { NavLink, useParams } from 'react-router-dom'
 import { read } from '../api/cateProduct'
-import { detaicateProduct } from '../redux/cateproductSlice'
-import { CateProductType } from '../types/cateProduct'
 import { ProductType } from '../types/product'
 
 const DetailCateProduct = () => {
-    const [cateProduct,setCateProduct] = useState()
+    const [cateProduct,setCateProduct] = useState<any>()
     const _id = useParams().id
     useEffect(()=>{
       const getProduct = async ()=>{
@@ -16,6 +13,7 @@ const DetailCateProduct = () => {
     }
     getProduct()
 },[])
+console.log(cateProduct)
   return (
     <div className="bg-white">
         <div className=" mx-auto py-10 px-14 sm:py-5 sm:px-4  lg:px-[45px]">

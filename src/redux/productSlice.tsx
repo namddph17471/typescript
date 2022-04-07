@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { number, string } from "yup";
-import { addProduct, list, read, remove, update } from "../api/products";
+import { addProduct, list, productRelated, read, remove, update } from "../api/products";
 import { ProductType } from "../types/product";
 
 
