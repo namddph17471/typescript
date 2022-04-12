@@ -3,15 +3,15 @@ import { isAuthenticate } from '../utils/localStorage';
 import instance from './instance';
 
 const {token, user} = isAuthenticate()
-// export const list = () => {
-//     const url = `/products/?_expand=cateProductId&_order=desc&_sort=createdAt`;
-//     return instance.get(url);
-// }
 export const list = (start=0,limit=0) => {
     let url = `/products/?_expand=cateProductId&_order=desc&_sort=createdAt`;
     if(limit) url += `&_start=${start}&limit=${limit}`
     return instance.get(url);
 }
+// export const getNewproduct = ()=>{
+//     let url = `/products/?_expand=cateProductId&_order=desc&_sort=createAt`;
+//     return instance.get(url);
+// }
 export const productRelated = (cateProductId:any,limit = 0)=>{
     let url = `/products?_expand=cateProductId&cateProductId=${cateProductId}&_order=desc`;
     if(limit) url +=`&limit=${limit}`;

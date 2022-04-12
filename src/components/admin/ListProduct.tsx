@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { list } from '../api/products'
-import { getProduct,  getProductPagination,  removeProduct, selectProduct } from '../redux/productSlice'
-import { ProductType } from '../types/product'
+import { list } from '../../api/products'
+import { getProduct,  getProductPagination,  removeProduct, selectProduct } from '../../redux/productSlice'
+import { ProductType } from '../../types/product'
 
 type ListProductProps = {
     start:number,
@@ -17,7 +17,6 @@ const ListProduct = ({start,limit}: ListProductProps) => {
       
       dispatch(getProductPagination({start,limit}))
   },[start])
-  console.log("start",start)
     const onRemove =(id:any)=>{
         dispatch(removeProduct(id))
       }

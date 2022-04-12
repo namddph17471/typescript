@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { getNew, selectNew } from '../redux/newSlice'
-import { NewType } from '../types/new'
+import { getNew, selectNew } from '../../redux/newSlice'
+import { NewType } from '../../types/new'
 
 const NewList = () => {
     const dispatch = useDispatch()

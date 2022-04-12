@@ -6,8 +6,8 @@ import { getProduct, removeProduct, selectProduct, selectTotalProduct } from '..
 import { ProductType } from '../../../types/product'
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
-import ListProduct from '../../../components/ListProduct'
-import Pagination from '../../../components/Pagination'
+import ListProduct from '../../../components/admin/ListProduct'
+import Pagination from '../../../components/admin/Pagination'
 import { list } from '../../../api/products'
 
 const ManagerProduct = () => {

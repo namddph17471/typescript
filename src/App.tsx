@@ -4,22 +4,16 @@ import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import WebsiteLayout from './pages/layouts/WebsiteLayout'
 import Home from './pages/Home'
-import Products from './pages/user/products/Products'
+import Products from './pages/user/products/ProductsPage'
 import About from './pages/About'
 import AdminLayout from './pages/layouts/AdminLayout'
 import Dashboard from './pages/admin/Dashboard'
 import ManagerProduct from './pages/admin/products/ManagerProduct'
-import { ProductType } from './types/product'
-
-import { addProduct, list, remove, update } from './api/products'
 import ProductAdd from './pages/admin/products/ProductAdd'
 import ProductUpdate from './pages/admin/products/ProductUpdate'
-import ProductList from './components/ProductList'
 import DetailProduct from './pages/user/products/DetailProduct'
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
-import { useDispatch } from 'react-redux'
-import { removeProduct } from './redux/productSlice'
 import MangerCateProduct from './pages/admin/cateProduct/ManagerCateProduct'
 import CateProductAdd from './pages/admin/cateProduct/CateProductAdd'
 import CateProductEdit from './pages/admin/cateProduct/CateProductEdit'
@@ -34,6 +28,7 @@ import CateNewAdd from './pages/admin/cateNew/CateNewAdd'
 import CateNewEdit from './pages/admin/cateNew/CateNewEdit'
 import News from './pages/user/news/News'
 import DetailNew from './pages/user/news/DetailNew'
+import ProductsPage from './pages/user/products/ProductsPage'
 
 function App() {
   return (
@@ -43,7 +38,8 @@ function App() {
           <Route path='/' element={<WebsiteLayout/>} >
             <Route index element={< Home  />} />
             <Route path='products' >
-              <Route index element={<Products/>} />
+              <Route index element={<ProductsPage/>} />
+              <Route path='page/:page'element={<ProductsPage/>} />
               <Route path=':id'element={<DetailProduct/>} />
             </Route>
             <Route path='news' >

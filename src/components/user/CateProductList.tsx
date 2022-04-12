@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { getcateProduct, selectCateProduct } from '../redux/cateproductSlice'
-import { CateProductType } from '../types/cateProduct'
-import { ProductType } from '../types/product'
+import { getcateProduct, selectCateProduct } from '../../redux/cateproductSlice'
+import { CateProductType } from '../../types/cateProduct'
+import { ProductType } from '../../types/product'
 
 
 const CateProductList = () => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import { newRealted } from '../api/news'
-import { NewType } from '../types/new'
+import { newRealted } from '../../api/news'
+import { NewType } from '../../types/new'
 
 type NewRelatedProps = {
     cateNewId?:any

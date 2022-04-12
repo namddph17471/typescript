@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { read } from '../../../api/news'
-import NewRelated from '../../../components/NewRelated'
+import NewRelated from '../../../components/user/NewRelated'
 import { NewType } from '../../../types/new'
 
 const DetailNew = () => {

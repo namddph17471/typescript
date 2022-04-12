@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
-import { isAuthenticate } from '../utils/localStorage'
+import { isAuthenticate } from '../../utils/localStorage'
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 

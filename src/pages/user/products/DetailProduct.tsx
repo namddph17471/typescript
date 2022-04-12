@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { read } from '../../../api/products'
-import ProductRelated from '../../../components/ProductRelated'
+import ProductRelated from '../../../components/user/ProductRelated'
 import { ProductType } from '../../../types/product'
 
 const DetailProduct = () => {

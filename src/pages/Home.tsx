@@ -1,7 +1,6 @@
 import React from 'react'
-import CateProductList from '../components/CateProductList'
-import ProductList from '../components/ProductList'
-// import { ProductType } from '../types/product'
+import CateProductList from '../components/user/CateProductList'
+import ProductNew from '../components/user/ProductNew'
 
 
 
@@ -12,7 +11,7 @@ const Home = () => {
         <CateProductList/>
       </div>
       <div>
-        <ProductList />
+        <ProductNew limit={4} start={0} />
       </div>
     </div>
   )
