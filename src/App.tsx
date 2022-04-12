@@ -26,6 +26,13 @@ import CateProductAdd from './pages/CateProductAdd'
 import CateProductEdit from './pages/CateProductEdit'
 import DetailCateProduct from './pages/DetailCateProduct'
 import PrivateRouter from './components/PrivateRouter'
+import MyAccount from './pages/MyAccount'
+import ManagerNew from './pages/ManagerNew'
+import NewAdd from './pages/NewAdd'
+import NewEdit from './pages/NewEdit'
+import MangerCateNew from './pages/ManagerCateNew'
+import CateNewAdd from './pages/CateNewAdd'
+import CateNewEdit from './pages/CateNewEdit'
 
 function App() {
   // const dispatch = useDispatch()
@@ -66,8 +73,9 @@ function App() {
             <Route path='about' element={< About />} />
             <Route path='signin' element={<Signin/>} />
             <Route path='signup' element={<Signup/>} />
+            <Route path='my-account/:id/updateInfo' element={<MyAccount/>}/>
           </Route>
-          <Route path='admin' element={ <PrivateRouter> <AdminLayout /> </PrivateRouter> }>
+          <Route path='admin' element={ <PrivateRouter><AdminLayout /></PrivateRouter> }>
             <Route index element={< Navigate to="dashboard" />} />
             <Route path='dashboard' element={< Dashboard  />} />
             <Route path='products'  >
@@ -79,6 +87,16 @@ function App() {
               <Route index element={<MangerCateProduct/>} />
               <Route path='add' element={<CateProductAdd/>} />
               <Route path=':id/edit' element={<CateProductEdit/>} />
+            </Route>
+            <Route path='news'  >
+              <Route index element={< ManagerNew  />} />
+              <Route path='add' element={< NewAdd  />} />
+              <Route path=':id/edit' element={< NewEdit  />} />
+            </Route>
+            <Route path='cateNew'>
+              <Route index element={<MangerCateNew/>} />
+              <Route path='add' element={<CateNewAdd/>} />
+              <Route path=':id/edit' element={<CateNewEdit/>} />
             </Route>
           </Route>
         </Routes>

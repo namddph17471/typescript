@@ -3,6 +3,12 @@ import { number } from "yup";
 import { addCateProduct, list, read, remove, update } from "../api/cateProduct";
 import { CateProductType } from "../types/cateProduct";
 
+type CateProductState ={
+    value:CateProductType[]
+}
+const initialState:CateProductState ={
+    value:[]
+}
 export const getcateProduct = createAsyncThunk(
     "cateProduct/getCateProduct",
     async ()=>{
@@ -40,22 +46,8 @@ export const updatecateProduct = createAsyncThunk(
 )
 const cateProductSlice = createSlice({
     name:"catecateProduct",
-    initialState:{
-        value:[[{
-            _id:number
-        }]]
-    },
-    reducers:{
-        createCateProduct(state,action){
-            state.value.push(action.payload)
-        },
-        updateCateProduct(state,action){
-            state.value = state.value.map(item => item._id == action.payload._id?action.payload:item)
-        },
-        removeCateProduct(state,action){
-            state.value.filter(item => item._id !== action.payload._id)
-        }
-    },
+    initialState,
+    reducers:{},
     extraReducers:(builder)=>{
         builder.addCase(getcateProduct.fulfilled, (state,action)=>{
             state.value = action.payload
@@ -67,7 +59,7 @@ const cateProductSlice = createSlice({
             state.value.push(action.payload)
         })
         builder.addCase(removecateProduct.fulfilled,(state,action)=>{
-           state.value = state.value.filter(item => item._id !== action.payload._id)
+            state.value = state.value.filter(item => item._id !== action.payload._id)
         })
         builder.addCase(updatecateProduct.fulfilled,(state,action)=>{
             state.value = state.value.map(item => item._id == action.payload._id?action.payload:item)

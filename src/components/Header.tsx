@@ -36,7 +36,7 @@ const Header = () => {
               {user && (
                 <>
                     <li className="list-none whitespace-nowrap text-base font-medium text-white-500 hover:text-white-900">
-                      <Link to={user.role ? '/admin' : '/'}>Hello, {user.name}</Link>
+                      <Link to={user.role ? '/admin' : `/my-account/${user._id}/updateInfo`}>Hello, {user.name}</Link>
                   </li>
                   <li className="cursor-pointer ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700">
                     <button onClick={handleLogout}>Logout</button>

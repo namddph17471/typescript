@@ -2,8 +2,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from "react-redux";
-import { createcateProduct } from "../redux/cateproductSlice";
-import { CateProductType } from "../types/cateProduct";
+import { createcateNew } from "../redux/catenewSlice";
+import { CateNewType } from "../types/cateNew";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import { useState } from "react";
@@ -14,7 +14,7 @@ type FormInput = {
     name:string,
     image:string
 }
-const CateProductAdd = () => {
+const CateNewAdd = () => {
     const dispatch = useDispatch()
     const { register, handleSubmit, formState: { errors } } = useForm<FormInput>();
     const navigate = useNavigate()
@@ -22,9 +22,9 @@ const CateProductAdd = () => {
         try {
             const url= await uploadFile(data.image[0]);
             data.image = url,
-            dispatch(createcateProduct(data))
-            navigate('/admin/cateProduct');
-            toastr.success("Thêm danh mục sản phẩm thành công")
+            dispatch(createcateNew(data))
+            navigate('/admin/cateNew');
+            toastr.success("Thêm danh mục  thành công")
         } catch (error:any) {
             toastr.error(error.response.data.error)
         }
@@ -36,7 +36,7 @@ const CateProductAdd = () => {
             <header className="bg-white shadow">
                 <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <h1 className="text-3xl font-bold text-gray-900">
-                    Thêm mới Danh Mục Sản phẩm
+                    Thêm mới Danh Mục Tin Tức
                 </h1>
                 </div>
             </header>
@@ -90,4 +90,4 @@ const CateProductAdd = () => {
   )
 }
 
-export default CateProductAdd
+export default CateNewAdd

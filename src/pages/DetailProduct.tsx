@@ -14,7 +14,7 @@ const DetailProduct = () => {
       setProduct(data)
     }
     getProduct()
-  },[])
+  },[_id])
   return (
     <div>
       <main>

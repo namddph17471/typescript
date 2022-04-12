@@ -2,48 +2,45 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
-import { ProductType } from "../types/product";
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
-import { createProduct } from "../redux/productSlice";
+import { createNew } from "../redux/newSlice";
 import { useEffect, useState } from "react";
-import { getcateProduct } from "../redux/cateproductSlice";
-import { CateProductType } from "../types/cateProduct";
+import { getcateNew } from "../redux/catenewSlice";
+import { CateNewType } from "../types/cateNew";
 import { uploadFile } from "../utils";
 
 type FormInput = {
     _id:any,
-    name:string,
-    price:number,
+    title:string,
     desc:string,
     image:string,
-    cateProductId:any
+    cateNewId:any
 }
-const ProductAdd = ( )=> {
+const NewAdd = ( )=> {
     const dispatch = useDispatch()
     const [preview, setPreview] = useState<string>();
     
     const { register, handleSubmit, formState: { errors } } = useForm<FormInput>();
     const navigate = useNavigate()
-    const cateProduct= useSelector(data =>{
-        return data.cateProduct.value
+    const cateNew= useSelector(data =>{
+        return data.cateNew.value
     })
     useEffect(()=>{
-        dispatch(getcateProduct())
+        dispatch(getcateNew())
     },[])
     const handlePreview = (e: any) => {
         setPreview(URL.createObjectURL(e.target.files[0]));
         console.log(preview)
     }
-    const onSubmit:SubmitHandler<FormInput>  = async (data)=>{
+    const onSubmit:SubmitHandler<FormInput>  = async (data:any)=>{
         try {
             const url= await uploadFile(data.image[0]);
             data.image = url,
-            console.log(data)
-            dispatch(createProduct(data))
-            toastr.success("Thêm sản phẩm thành công")
+            dispatch(createNew(data))
+            toastr.success("Thêm tin tức thành công")
             setPreview("");
-            navigate('/admin/products');
+            navigate('/admin/news');
         } catch (error:any) {
             toastr.error(error.response.data.message)
         }
@@ -55,7 +52,7 @@ const ProductAdd = ( )=> {
             <header className="bg-white shadow">
                 <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <h1 className="text-3xl font-bold text-gray-900">
-                    Thêm mới Sản phẩm
+                    Thêm mới Tin Tức
                 </h1>
                 </div>
             </header>
@@ -70,9 +67,9 @@ const ProductAdd = ( )=> {
                             Tên
                             </label>
                             <div className="mt-1">
-                            <input  type="text" className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Tên Sản Phẩm" {...register('name',{required:true,minLength:5})} />
-                            {errors.name && errors.name.type ==="required" && <span className="text-red-500">Không được để trống</span>}
-                            {errors.name && errors.name.type ==="minLength" && <span className="text-red-500">Ít Nhất 5 Ký tự</span>} 
+                            <input  type="text" className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Tên Tiêu Đề" {...register('title',{required:true,minLength:5})} />
+                            {errors.title && errors.title.type ==="required" && <span className="text-red-500">Không được để trống</span>}
+                            {errors.title && errors.title.type ==="minLength" && <span className="text-red-500">Ít Nhất 5 Ký tự</span>} 
                             </div>
                         </div>
                         <div className="col-span-3 ">
@@ -97,31 +94,19 @@ const ProductAdd = ( )=> {
                         <div>
                         <div>
                             <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                                Loại Hàng
+                                Loại Tin Tức
                             </label>
                             
-                            <select id="cateProductId" defaultValue="" className="mt-1 p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" {...register('cateProductId',{required:true})}>
-                                <option value="">--Chọn Loại Hàng--</option>
-                            {cateProduct.map((item:CateProductType) => {
+                            <select id="cateNewId" defaultValue="" className="mt-1 p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" {...register('cateNewId',{required:true})}>
+                                <option value="">--Chọn Loại Tin Tức--</option>
+                            {cateNew.map((item:CateNewType) => {
                                return <option key={item._id} value={item._id}  className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" >{item.name}</option >
                             })}
                             </select>
-                            {errors.cateProductId && errors.cateProductId.type ==="required" && <span className="text-red-500">Không được để trống</span>}
+                            {errors.cateNewId && errors.cateNewId.type ==="required" && <span className="text-red-500">Không được để trống</span>}
                         </div>
 
                         </div>
-                        <div>
-                            <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                            Giá
-                            </label>
-                            <div className="mt-1">
-                            <input  className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Giá Sản Phẩm"{...register('price',{required:true,valueAsNumber:true,min:0})} />
-                            {errors.price && errors.price.type ==="required" && <span className="text-red-500">Không được để trống</span>}
-                            {errors.price && errors.price.type ==="valueAsNumber" && <span className="text-red-500">Phải là số</span>}
-                            {errors.price && errors.price.type ==="min" && <span className="text-red-500">Phải lớn hơn 0</span>}
-                            </div>
-                        </div>
-            
                         <div>
                             <label htmlFor="about" className="block text-sm font-medium text-gray-700">
                             Nội dung
@@ -134,7 +119,7 @@ const ProductAdd = ( )=> {
                         </div>
                         <div className="mt-5 flex lg:mt-0 lg:ml-4">
                         <button type="submit" className=" m-3 btn inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Thêm mới sản phẩm
+                            Thêm mới Tin tức
                         </button>
                         </div>
                     </div>
@@ -148,4 +133,4 @@ const ProductAdd = ( )=> {
   )
 }
 
-export default ProductAdd
+export default NewAdd

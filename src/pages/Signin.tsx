@@ -12,13 +12,18 @@ type FormInput={
 
 const Signin = () => {
     const navigate = useNavigate()
+    if (localStorage.getItem("user")) {
+        navigate("/")
+        toastr.warning("Bạn đã đăng nhập !")
+    }
     const {register,handleSubmit,formState:{errors}} = useForm<FormInput>()
     const onSubmit:SubmitHandler<FormInput>= async (data)=>{
         try {
+            
             const {data: user } = await signin(data);
-        localStorage.setItem('user', JSON.stringify(user))
-        navigate("/")
-        toastr.success("Đăng nhập thành công")
+            localStorage.setItem('user', JSON.stringify(user))
+            navigate("/")
+            toastr.success("Đăng nhập thành công")
         } catch (error:any) {
             toastr.error(error.response.data.message)
         }

@@ -3,12 +3,16 @@ import { number, string } from "yup";
 import { addProduct, list, productRelated, read, remove, update } from "../api/products";
 import { ProductType } from "../types/product";
 
-
-  
+type ProductState = {
+    value:ProductType[]
+}
+  const initialState:ProductState={
+      value:[]
+  }
 export const getProduct = createAsyncThunk(
     "product/getProduct",
     async ()=>{
-      const {data} =   await list()
+      const {data} = await list()
       return data
     }
 )
@@ -35,28 +39,8 @@ export const updateProduct = createAsyncThunk(
 )
 const productSlice = createSlice({
     name:"product",
-    initialState:{
-        value:[{
-            _id:number,
-            product:{
-            name:string,
-            price:number,
-            cateProduct:number
-            }
-            
-        }]
-    },
-    reducers:{
-        createProduct(state,action){
-            state.value.push(action.payload)
-        },
-        updateProduct(state,action){
-            state.value = state.value.map(item => item._id == action.payload._id?action.payload:item)
-        },
-        removeProduct(state,action){
-            state.value.filter(item => item._id !== action.payload._id)
-        }
-    },
+    initialState,
+    reducers:{},
     extraReducers:(builder)=>{
         builder.addCase(getProduct.fulfilled, (state,action)=>{
             state.value = action.payload

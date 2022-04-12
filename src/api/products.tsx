@@ -13,8 +13,12 @@ export const productRelated = (cateProductId:any,limit = 0)=>{
     return instance.get(url)
 }
 export const remove = (id:number) => {
-    const url = `/products/${id}`;
-    return instance.delete(url);
+    const url = `/products/${id}/${user._id}`;
+    return instance.delete(url,{
+        headers:{
+            "Authorization": `Bearer ${token}`
+        }
+    });
 }
 export const addProduct = (product:ProductType) => {
     const url = `/products/${user._id}`;
@@ -35,4 +39,8 @@ export const update = (product:ProductType) => {
 export const read = (_id:any) => {
     const url = `/products/${_id}/?_expand=cateProductId`;
     return instance.get(url);
+}
+export const detail = (_id:any)=>{
+    const url = `/products/${_id}`;
+    return instance.get(url)
 }
