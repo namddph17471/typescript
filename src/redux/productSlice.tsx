@@ -4,16 +4,29 @@ import { addProduct, list, productRelated, read, remove, update } from "../api/p
 import { ProductType } from "../types/product";
 
 type ProductState = {
-    value:ProductType[]
+    value:ProductType[],
+    totalProduct: number
 }
   const initialState:ProductState={
-      value:[]
+      value:[],
+      totalProduct:0
   }
 export const getProduct = createAsyncThunk(
     "product/getProduct",
     async ()=>{
       const {data} = await list()
       return data
+    }
+)
+export const getProductPagination = createAsyncThunk(
+    "product/getProductPagination",
+    async ({ start, limit }: { start: number, limit: number })=>{
+        const { data } = await list();
+        const totalProduct = data.length;
+
+        const { data: productsData } = await list(start, limit);
+
+        return { totalProduct, productsData };
     }
 )
 export const createProduct = createAsyncThunk(
@@ -45,6 +58,10 @@ const productSlice = createSlice({
         builder.addCase(getProduct.fulfilled, (state,action)=>{
             state.value = action.payload
         })
+        builder.addCase(getProductPagination.fulfilled, (state,{payload})=>{
+            state.value = payload.productsData
+            state.totalProduct = payload.totalProduct
+        })
         builder.addCase(createProduct.fulfilled,(state,action)=>{
             state.value.push(action.payload)
         })
@@ -57,4 +74,5 @@ const productSlice = createSlice({
     }
 })
 export const selectProduct = (state: any) => state.product.value;
+export const selectTotalProduct = (state: any) => state.product.totalProduct;
 export default productSlice.reducer 

@@ -1,22 +1,27 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../redux/hook'
-import { getProduct, removeProduct, selectProduct } from '../../../redux/productSlice'
+import { getProduct, removeProduct, selectProduct, selectTotalProduct } from '../../../redux/productSlice'
 import { ProductType } from '../../../types/product'
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
-// import { ProductType } from '../types/product'
+import ListProduct from '../../../components/ListProduct'
+import Pagination from '../../../components/Pagination'
+import { list } from '../../../api/products'
 
 const ManagerProduct = () => {
-  const dispatch = useDispatch()
-  const product = useSelector(selectProduct)
+    const dispatch = useDispatch()
+    const totalItem = useSelector(selectTotalProduct);
+    const { page } = useParams();
+    const limit = 5;
+    const totalPage = Math.ceil(totalItem / limit);
+    let currentPage = Number(page) || 1;
+    currentPage = currentPage < 1 ? 1 : currentPage > totalPage ? totalPage : currentPage;
+    const start = (currentPage - 1) * limit > 0 ? (currentPage - 1) * limit : 0;
   useEffect(()=>{
       dispatch(getProduct())
   },[])
-  const onRemove =(id:any)=>{
-    dispatch(removeProduct(id))
-  }
   return (
         <div>
           <header className="bg-white shadow">
@@ -45,61 +50,8 @@ const ManagerProduct = () => {
                   <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                       <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                            <table className="min-w-full divide-y divide-gray-200">
-                          <thead className="bg-gray-50">
-                            <tr>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                STT
-                              </th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Image
-                              </th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Title
-                              </th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Price
-                              </th>
-                              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Category
-                              </th>
-                              <th scope="col" className="relative px-6 py-3">
-                                <span className="sr-only">Edit</span>
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody className="bg-white divide-y divide-gray-200">
-                        { product && product.map((item:ProductType,index:number)=>{
-                           return <tr key={index +1 }>
-                              <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-900">{index + 1}</div>
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="flex items-center">
-                                  <div className="flex-shrink-0 h-10 w-10">
-                                    <img className="h-10 w-10 " src={item.image} alt='' />
-                                  </div>
-                                </div>
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-900">{item.name}</div>
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-900">{item.price}</div>
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="text-sm text-gray-900">
-                                  {item.cateProductId?.name}
-                                </div>
-                              </td>
-                              <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium flex space-x-2">
-                              <button className='border font-medium text-base text-white m-2 p-2 rounded bg-red-500' onClick={()=> onRemove(item._id)} >Remove</button>
-                              <Link to={`/admin/products/${item._id}/edit`} className="border font-medium text-base text-white m-2 p-2 rounded bg-indigo-600">Edit</Link>
-                              </td>
-                            </tr>
-                      })}
-                          </tbody>
-                        </table>
+                        <ListProduct start={start} limit={limit} />
+                        <Pagination page={currentPage} totalPage={totalPage} url="products" />
                       </div>
                     </div>
                   </div>

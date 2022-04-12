@@ -62,6 +62,7 @@ function App() {
             <Route path='dashboard' element={< Dashboard  />} />
             <Route path='products'  >
               <Route index element={< ManagerProduct  />} />
+              <Route path='page/:page' element={< ManagerProduct  />} />
               <Route path='add' element={< ProductAdd  />} />
               <Route path=':id/edit' element={< ProductUpdate  />} />
             </Route>

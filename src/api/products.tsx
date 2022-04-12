@@ -3,13 +3,13 @@ import { isAuthenticate } from '../utils/localStorage';
 import instance from './instance';
 
 const {token, user} = isAuthenticate()
-export const list = () => {
-    const url = `/products/?_expand=cateProductId&_order=desc&_sort=createdAt`;
-    return instance.get(url);
-}
-export const pagination = (page?:number,limit?:number) => {
+// export const list = () => {
+//     const url = `/products/?_expand=cateProductId&_order=desc&_sort=createdAt`;
+//     return instance.get(url);
+// }
+export const list = (start=0,limit=0) => {
     let url = `/products/?_expand=cateProductId&_order=desc&_sort=createdAt`;
-    if(page) url += `&_page=${page}&limit=${limit}`
+    if(limit) url += `&_start=${start}&limit=${limit}`
     return instance.get(url);
 }
 export const productRelated = (cateProductId:any,limit = 0)=>{
