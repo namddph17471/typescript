@@ -6,8 +6,9 @@ export const list = ()=>{
     const url = `/news/?_expand=cateNewId&_order=desc`
     return instance.get(url)
 }
-export const newRelated = (cateNewId:any,_id:any)=>{
-    const url =`/news/${_id}?_expand=cateNewId&cateNewId=${cateNewId}&_order=desc`
+export const newRealted = (cateNewId:any,limit = 0)=>{
+    let url = `/news?_expand=cateNewId&cateNewId=${cateNewId}&_order=desc`;
+    if(limit) url +=`&limit=${limit}`;
     return instance.get(url)
 }
 export const detail = (_id:any)=>{

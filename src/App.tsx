@@ -5,7 +5,6 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import WebsiteLayout from './pages/layouts/WebsiteLayout'
 import Home from './pages/Home'
 import Products from './pages/Products'
-import New from './pages/New'
 import About from './pages/About'
 import AdminLayout from './pages/layouts/AdminLayout'
 import Dashboard from './pages/Dashboard'
@@ -33,6 +32,8 @@ import NewEdit from './pages/NewEdit'
 import MangerCateNew from './pages/ManagerCateNew'
 import CateNewAdd from './pages/CateNewAdd'
 import CateNewEdit from './pages/CateNewEdit'
+import News from './pages/News'
+import DetailNew from './pages/DetailNew'
 
 function App() {
   // const dispatch = useDispatch()
@@ -67,9 +68,12 @@ function App() {
               <Route index element={<Products/>} />
               <Route path=':id'element={<DetailProduct/>} />
             </Route>
+            <Route path='news' >
+              <Route index element={<News/>} />
+              <Route path=':id'element={<DetailNew/>} />
+            </Route>
             <Route path='cateProduct/:id' element={<DetailCateProduct/>} />
             <Route path='products' element={< Products />} />
-            <Route path='news' element={< New />} />
             <Route path='about' element={< About />} />
             <Route path='signin' element={<Signin/>} />
             <Route path='signup' element={<Signup/>} />
