@@ -12,7 +12,6 @@ const Header = () => {
     toastr.success("Bạn đăng xuất thành công")
     navigate("/signin")
   }
-  // console.log(user)
   return (
     <div>
         <div className="relative bg-white">

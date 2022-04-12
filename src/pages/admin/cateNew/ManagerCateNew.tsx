@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
-import { getcateNew, removecateNew } from '../redux/catenewSlice'
-import { CateNewType } from '../types/cateNew'
+import { getcateNew, removecateNew, selectCateNew } from '../../../redux/catenewSlice'
+import { CateNewType } from '../../../types/cateNew'
 
 const MangerCateNew = () => {
   const dispatch = useDispatch()
-  const cateNew = useSelector(data => {
-      return data.cateNew.value
-  })
+  const cateNew = useSelector(selectCateNew)
   useEffect(()=>{
       dispatch(getcateNew())
   },[])

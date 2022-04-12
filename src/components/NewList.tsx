@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { getNew } from '../redux/newSlice'
+import { getNew, selectNew } from '../redux/newSlice'
 import { NewType } from '../types/new'
 
 const NewList = () => {
     const dispatch = useDispatch()
-    const news = useSelector(data =>{
-        return data.new.value
-    })
+    const news = useSelector(selectNew)
     useEffect(()=>{
         dispatch(getNew())
     },[])

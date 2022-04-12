@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { getProduct } from '../redux/productSlice'
+import { getProduct, selectProduct } from '../redux/productSlice'
 import { ProductType } from '../types/product'
 
 
 const ProductList = () => {
     const dispatch = useDispatch()
-    const product = useSelector(data => {
-      return data.product.value
-  })
+    const product = useSelector(selectProduct)
   useEffect(()=>{
       dispatch(getProduct())
   },[])

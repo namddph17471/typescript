@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { getcateProduct } from '../redux/cateproductSlice'
+import { getcateProduct, selectCateProduct } from '../redux/cateproductSlice'
 import { CateProductType } from '../types/cateProduct'
 import { ProductType } from '../types/product'
 
 
 const CateProductList = () => {
     const dispatch = useDispatch()
-    const cateProduct = useSelector(data => {
-    return data.cateProduct.value
-    })
+    const cateProduct = useSelector(selectCateProduct)
     useEffect(()=>{
     dispatch(getcateProduct())
     },[])

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useDispatch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
-import { read } from '../api/cateProduct'
-import { updatecateProduct } from '../redux/cateproductSlice'
-import { useAppDispatch } from '../redux/hook'
-import { CateProductType } from '../types/cateProduct'
-import { uploadFile } from "../utils";
+import { read } from '../../../api/cateProduct'
+import { updatecateProduct } from '../../../redux/cateproductSlice'
+import { useAppDispatch } from '../../../redux/hook'
+import { CateProductType } from '../../../types/cateProduct'
+import { uploadFile } from "../../../utils";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 

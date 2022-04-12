@@ -4,60 +4,38 @@ import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import WebsiteLayout from './pages/layouts/WebsiteLayout'
 import Home from './pages/Home'
-import Products from './pages/Products'
+import Products from './pages/user/products/Products'
 import About from './pages/About'
 import AdminLayout from './pages/layouts/AdminLayout'
-import Dashboard from './pages/Dashboard'
-import ManagerProduct from './pages/ManagerProduct'
+import Dashboard from './pages/admin/Dashboard'
+import ManagerProduct from './pages/admin/products/ManagerProduct'
 import { ProductType } from './types/product'
 
 import { addProduct, list, remove, update } from './api/products'
-import ProductAdd from './pages/ProductAdd'
-import ProductUpdate from './pages/ProductUpdate'
+import ProductAdd from './pages/admin/products/ProductAdd'
+import ProductUpdate from './pages/admin/products/ProductUpdate'
 import ProductList from './components/ProductList'
-import DetailProduct from './pages/DetailProduct'
+import DetailProduct from './pages/user/products/DetailProduct'
 import Signin from './pages/Signin'
 import Signup from './pages/Signup'
 import { useDispatch } from 'react-redux'
 import { removeProduct } from './redux/productSlice'
-import MangerCateProduct from './pages/ManagerCateProduct'
-import CateProductAdd from './pages/CateProductAdd'
-import CateProductEdit from './pages/CateProductEdit'
+import MangerCateProduct from './pages/admin/cateProduct/ManagerCateProduct'
+import CateProductAdd from './pages/admin/cateProduct/CateProductAdd'
+import CateProductEdit from './pages/admin/cateProduct/CateProductEdit'
 import DetailCateProduct from './pages/DetailCateProduct'
 import PrivateRouter from './components/PrivateRouter'
 import MyAccount from './pages/MyAccount'
-import ManagerNew from './pages/ManagerNew'
-import NewAdd from './pages/NewAdd'
-import NewEdit from './pages/NewEdit'
-import MangerCateNew from './pages/ManagerCateNew'
-import CateNewAdd from './pages/CateNewAdd'
-import CateNewEdit from './pages/CateNewEdit'
-import News from './pages/News'
-import DetailNew from './pages/DetailNew'
+import ManagerNew from './pages/admin/news/ManagerNew'
+import NewAdd from './pages/admin/news/NewAdd'
+import NewEdit from './pages/admin/news/NewEdit'
+import MangerCateNew from './pages/admin/cateNew/ManagerCateNew'
+import CateNewAdd from './pages/admin/cateNew/CateNewAdd'
+import CateNewEdit from './pages/admin/cateNew/CateNewEdit'
+import News from './pages/user/news/News'
+import DetailNew from './pages/user/news/DetailNew'
 
 function App() {
-  // const dispatch = useDispatch()
-  // const[products,SetProduct] = useState([]);
-  // useEffect(()=>{
-  //   const getProducts =  async ()=>{
-  //     const {data} = await list()
-  //     SetProduct(data)
-  //   }
-  //   getProducts()
-  // },[])
-  // const removeItem= async (id:number)=>{
-  //   // const {data} =  await remove(id);
-  //   // data && SetProduct(products.filter(item => item._id !== id));
-  //   dispatch(removeProduct(id))
-  //   }
-    // const handleAdd= async(product:ProductType)=>{
-    //   const {data} = await addProduct(product);
-    //   SetProduct([...products,data])
-    // }
-    // const handleUpdate = async(product)=>{
-    //   const {data} = await update(product);
-    //   SetProduct(products.map(item => item._id == data._id?data : item))
-  // }
   return (
     <div className="App">
       <>

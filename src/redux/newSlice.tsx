@@ -56,4 +56,5 @@ const newSLice = createSlice({
          })
     }
 })
+export const selectNew = (state: any) => state.new.value;
 export default newSLice.reducer 

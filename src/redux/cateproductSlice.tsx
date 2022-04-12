@@ -45,7 +45,7 @@ export const updatecateProduct = createAsyncThunk(
     }
 )
 const cateProductSlice = createSlice({
-    name:"catecateProduct",
+    name:"cateProduct",
     initialState,
     reducers:{},
     extraReducers:(builder)=>{
@@ -66,4 +66,5 @@ const cateProductSlice = createSlice({
          })
     }
 })
+export const selectCateProduct = (state: any) => state.cateProduct.value;
 export default cateProductSlice.reducer 

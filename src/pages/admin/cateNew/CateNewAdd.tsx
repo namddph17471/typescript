@@ -2,12 +2,12 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from "react-redux";
-import { createcateNew } from "../redux/catenewSlice";
-import { CateNewType } from "../types/cateNew";
+import { createcateNew } from "../../../redux/catenewSlice";
+import { CateNewType } from "../../../types/cateNew";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import { useState } from "react";
-import { uploadFile } from "../utils";
+import { uploadFile } from "../../../utils";
 
 type FormInput = {
     _id:number,

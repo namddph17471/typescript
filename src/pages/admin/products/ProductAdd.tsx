@@ -2,45 +2,39 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
+import { ProductType } from "../../../types/product";
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from "react-redux";
-import { createNew } from "../redux/newSlice";
+import { createProduct } from "../../../redux/productSlice";
 import { useEffect, useState } from "react";
-import { getcateNew } from "../redux/catenewSlice";
-import { CateNewType } from "../types/cateNew";
-import { uploadFile } from "../utils";
+import { getcateProduct, selectCateProduct } from "../../../redux/cateproductSlice";
+import { CateProductType } from "../../../types/cateProduct";
+import { uploadFile } from "../../../utils";
 
 type FormInput = {
     _id:any,
-    title:string,
+    name:string,
+    price:number,
     desc:string,
     image:string,
-    cateNewId:any
+    cateProductId:any
 }
-const NewAdd = ( )=> {
+const ProductAdd = ( )=> {
     const dispatch = useDispatch()
-    const [preview, setPreview] = useState<string>();
-    
     const { register, handleSubmit, formState: { errors } } = useForm<FormInput>();
     const navigate = useNavigate()
-    const cateNew= useSelector(data =>{
-        return data.cateNew.value
-    })
+    const cateProduct= useSelector(selectCateProduct)
     useEffect(()=>{
-        dispatch(getcateNew())
+        dispatch(getcateProduct())
     },[])
-    const handlePreview = (e: any) => {
-        setPreview(URL.createObjectURL(e.target.files[0]));
-        console.log(preview)
-    }
-    const onSubmit:SubmitHandler<FormInput>  = async (data:any)=>{
+    const onSubmit:SubmitHandler<FormInput>  = async (data)=>{
         try {
             const url= await uploadFile(data.image[0]);
             data.image = url,
-            dispatch(createNew(data))
-            toastr.success("Thêm tin tức thành công")
-            setPreview("");
-            navigate('/admin/news');
+            console.log(data)
+            dispatch(createProduct(data))
+            toastr.success("Thêm sản phẩm thành công")
+            navigate('/admin/products');
         } catch (error:any) {
             toastr.error(error.response.data.message)
         }
@@ -52,7 +46,7 @@ const NewAdd = ( )=> {
             <header className="bg-white shadow">
                 <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <h1 className="text-3xl font-bold text-gray-900">
-                    Thêm mới Tin Tức
+                    Thêm mới Sản phẩm
                 </h1>
                 </div>
             </header>
@@ -67,46 +61,49 @@ const NewAdd = ( )=> {
                             Tên
                             </label>
                             <div className="mt-1">
-                            <input  type="text" className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Tên Tiêu Đề" {...register('title',{required:true,minLength:5})} />
-                            {errors.title && errors.title.type ==="required" && <span className="text-red-500">Không được để trống</span>}
-                            {errors.title && errors.title.type ==="minLength" && <span className="text-red-500">Ít Nhất 5 Ký tự</span>} 
+                            <input  type="text" className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Tên Sản Phẩm" {...register('name',{required:true,minLength:5})} />
+                            {errors.name && errors.name.type ==="required" && <span className="text-red-500">Không được để trống</span>}
+                            {errors.name && errors.name.type ==="minLength" && <span className="text-red-500">Ít Nhất 5 Ký tự</span>} 
                             </div>
                         </div>
-                        <div className="col-span-3 ">
-                            <label className="block text-sm font-medium text-gray-700">Xem trước ảnh</label>
-                            <div className="mt-1 h-[500px]">
-                                <img
-                                    src={ preview || "https://res.cloudinary.com/namddph17471/image/upload/v1645490263/no-thumbnail-medium-16315289445371324098298-0-0-620-992-crop-16315296413801134506614_vc8xjb.png"}
-                                    alt="Preview Image"
-                                    className="h-full w-full object-cover rounded-md"
-                                />
-                            </div>
-                        </div>
+                        
                         <div>
                             <label className="block text-sm font-medium text-gray-700">
                             Ảnh
                             </label>
                             <div className="space-y-1 text-center">
-                            <input   onChange={e => handlePreview(e)} id="file-upload" type="file" className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md"{...register('image',{required:true})} />
+                            <input    id="file-upload" type="file" className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md"{...register('image',{required:true})} />
                             </div>
                             {errors.image && errors.image.type ==="required" && <span className="text-red-500">Không được để trống</span>}
                         </div>
                         <div>
                         <div>
                             <label htmlFor="about" className="block text-sm font-medium text-gray-700">
-                                Loại Tin Tức
+                                Loại Hàng
                             </label>
                             
-                            <select id="cateNewId" defaultValue="" className="mt-1 p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" {...register('cateNewId',{required:true})}>
-                                <option value="">--Chọn Loại Tin Tức--</option>
-                            {cateNew.map((item:CateNewType) => {
+                            <select id="cateProductId" defaultValue="" className="mt-1 p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" {...register('cateProductId',{required:true})}>
+                                <option value="">--Chọn Loại Hàng--</option>
+                            {cateProduct.map((item:CateProductType) => {
                                return <option key={item._id} value={item._id}  className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded" >{item.name}</option >
                             })}
                             </select>
-                            {errors.cateNewId && errors.cateNewId.type ==="required" && <span className="text-red-500">Không được để trống</span>}
+                            {errors.cateProductId && errors.cateProductId.type ==="required" && <span className="text-red-500">Không được để trống</span>}
                         </div>
 
                         </div>
+                        <div>
+                            <label htmlFor="about" className="block text-sm font-medium text-gray-700">
+                            Giá
+                            </label>
+                            <div className="mt-1">
+                            <input  className="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 py-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Giá Sản Phẩm"{...register('price',{required:true,valueAsNumber:true,min:0})} />
+                            {errors.price && errors.price.type ==="required" && <span className="text-red-500">Không được để trống</span>}
+                            {errors.price && errors.price.type ==="valueAsNumber" && <span className="text-red-500">Phải là số</span>}
+                            {errors.price && errors.price.type ==="min" && <span className="text-red-500">Phải lớn hơn 0</span>}
+                            </div>
+                        </div>
+            
                         <div>
                             <label htmlFor="about" className="block text-sm font-medium text-gray-700">
                             Nội dung
@@ -119,7 +116,7 @@ const NewAdd = ( )=> {
                         </div>
                         <div className="mt-5 flex lg:mt-0 lg:ml-4">
                         <button type="submit" className=" m-3 btn inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Thêm mới Tin tức
+                            Thêm mới sản phẩm
                         </button>
                         </div>
                     </div>
@@ -133,4 +130,4 @@ const NewAdd = ( )=> {
   )
 }
 
-export default NewAdd
+export default ProductAdd

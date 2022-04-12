@@ -38,7 +38,7 @@ const MyAccount = () => {
         if (typeof data.image === "object" && data.image.length) {
             data.image = await uploadFile(data.image[0]);
         }
-        dispatch(updateMyAccount(data))
+        dispatch(updateMyAccount(data))   
         navigate("/")
         toastr.success("Cập nhật thành công")
       } catch (error:any) {

@@ -1,18 +1,16 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
-import { useAppDispatch, useAppSelector } from '../redux/hook'
-import { getNew, removeNew } from '../redux/newSlice'
+import { useAppDispatch, useAppSelector } from '../../../redux/hook'
+import { getNew, removeNew, selectNew } from '../../../redux/newSlice'
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
-import { NewType } from '../types/new'
+import { NewType } from '../../../types/new'
 // import { NewType } from '../types/New'
 
 const ManagerNew = () => {
   const dispatch = useDispatch()
-  const news = useSelector(data => {
-      return data.new.value
-  })
+  const news = useSelector(selectNew)
   useEffect(()=>{
       dispatch(getNew())
   },[])

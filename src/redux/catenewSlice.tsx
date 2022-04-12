@@ -66,4 +66,5 @@ const cateNewReducer = createSlice({
          })
     }
 })
+export const selectCateNew = (state: any) => state.cateNew.value;
 export default cateNewReducer.reducer 

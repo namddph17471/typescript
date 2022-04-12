@@ -1,5 +1,5 @@
 import React from 'react'
-import NewList from '../components/NewList'
+import NewList from '../../../components/NewList'
 
 const News = () => {
   return (

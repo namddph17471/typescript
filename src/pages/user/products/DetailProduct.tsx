@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
-import { read } from '../api/products'
-import ProductRelated from '../components/ProductRelated'
-import { ProductType } from '../types/product'
+import { read } from '../../../api/products'
+import ProductRelated from '../../../components/ProductRelated'
+import { ProductType } from '../../../types/product'
 
 const DetailProduct = () => {
   const [product,setProduct] = useState<ProductType>()
@@ -15,7 +15,9 @@ const DetailProduct = () => {
     }
     getProduct()
   },[_id])
-  return (
+  
+  
+ return (
     <div>
       <main>
         <div className="mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 ">
