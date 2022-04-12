@@ -33,14 +33,21 @@ const HeaderAdmin = () => {
           </nav>
           {user && (
             <>
-             <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-               <li className="list-none whitespace-nowrap text-base font-medium text-white-500 hover:text-white-900">
-                   <Link to={user.role ? '/admin' : '/'}>Hello, {user.name}</Link>
-               </li>
-               <li className="cursor-pointer ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700">
-                 <button onClick={handleLogout}>Logout</button>
-               </li>
-             </div>
+              <button data-dropdown-toggle="dropdown" className="text-white-500  focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button" >
+                <li  className="list-none whitespace-nowrap text-base font-medium text-white-500 hover:text-white-900">
+                   Hello, {user.name}
+                </li>
+              </button>
+              <div className="hidden bg-white text-base z-50 list-none divide-y w-[10%] divide-white-100 rounded shadow my-4" id="dropdown">
+                <ul className="py-1" aria-labelledby="dropdown">
+                  <li className="text-base font-medium text-gray-500 hover:text-gray-900 block px-4 py-2">
+                  <Link to={user.role ? '/admin' : `/my-account/${user._id}/updateInfo`}>{user.role ?'Admin' : 'Cập nhật Thông tin'}</Link>
+                  </li>
+                  <li className="text-base font-medium text-gray-500 hover:text-gray-900 block px-4 py-2">
+                    <button onClick={handleLogout}>Logout</button>
+                  </li>
+                </ul>
+              </div>
             </>
           )}
         </div>

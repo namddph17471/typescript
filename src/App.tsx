@@ -47,7 +47,6 @@ function App() {
               <Route path=':id'element={<DetailNew/>} />
             </Route>
             <Route path='cateProduct/:id' element={<DetailCateProduct/>} />
-            <Route path='products' element={< Products />} />
             <Route path='about' element={< About />} />
             <Route path='signin' element={<Signin/>} />
             <Route path='signup' element={<Signup/>} />

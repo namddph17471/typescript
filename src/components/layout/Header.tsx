@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { isAuthenticate } from '../../utils/localStorage'
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
+import { getOneUser } from '../../api/users';
 
 const Header = () => {
   const {user} =isAuthenticate();
+  const [auth,setAuth] = useState<any>()
+  useEffect(()=>{
+    const getAuth = async()=>{
+        const {data}= await getOneUser(user._id)
+        setAuth(data)
+    }
+    getAuth()
+  },[])
   const navigate = useNavigate()
   const handleLogout = ()=>{
     localStorage.removeItem("user")
+    setAuth(auth.filter((item: { _id: any; }) => item._id !== user._id))
     toastr.success("Bạn đăng xuất thành công")
     navigate("/signin")
   }
@@ -34,14 +44,29 @@ const Header = () => {
               <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
               {user && (
                 <>
-                    <li className="list-none whitespace-nowrap text-base font-medium text-white-500 hover:text-white-900">
-                      <Link to={user.role ? '/admin' : `/my-account/${user._id}/updateInfo`}>Hello, {user.name}</Link>
-                  </li>
-                  <li className="cursor-pointer ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-red-600 hover:bg-red-700">
-                    <button onClick={handleLogout}>Logout</button>
-                  </li>
+                <div className='mr-[5%]'>
+                <button data-dropdown-toggle="dropdown" className="text-gray-500   font-medium rounded-full text-sm text-center inline-flex items-center" type="button" >
+                    <li  className="list-none whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+                      {auth?.image &&(
+                      <img className="rounded-full w-[60px] h-[60px]" src={`${auth?.image}`}  />
+                      )}
+                    </li>
+                    <li  className="list-none whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
+                      {auth?.name}
+                    </li>
+                  </button>
+                  <div className="hidden bg-white text-base z-50 list-none divide-y w-[10%] divide-gray-100 rounded shadow my-4" id="dropdown">
+                    <ul className="py-1" aria-labelledby="dropdown">
+                      <li className="text-base font-medium text-gray-500 hover:text-gray-900 block px-4 py-2">
+                      <Link to={user.role ? '/admin' : `/my-account/${user._id}/updateInfo`}>{user.role ?'Admin' : 'Cập nhật Thông tin'}</Link>
+                      </li>
+                      <li className="text-base font-medium text-gray-500 hover:text-gray-900 block px-4 py-2">
+                        <button onClick={handleLogout}>Logout</button>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
                 </>
-                  
               )}
               {!user &&(
                 <>
