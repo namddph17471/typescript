@@ -30,7 +30,7 @@ const authSlice = createSlice({
             state.value = action.payload
         })
         builder.addCase(updateMyAccount.fulfilled, (state, { payload }) => {
-            state.value = state.value.map(item => item._id == payload._id?payload:item)
+            state.value = payload
         })
     }
 })

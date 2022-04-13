@@ -5,18 +5,24 @@ import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 
 type PrivateRouterProps = {
-    children:JSX.Element
+    children:JSX.Element,
+    page:string
 }
 
-const PrivateRouter = (props: PrivateRouterProps) => {
+const PrivateRouter = ({children,page}: PrivateRouterProps) => {
     const { user } = isAuthenticate();
-    if (!user?.role) {
-        return (
-            toastr.error("Bạn Không phải Admin"),
-            <Navigate to="/signin"/>
-        )
+    console.log(user)
+    if (page === "admin") {
+        if (!user  || !user.role) {
+            return <Navigate to="/signin" />
+        }
+    } else {
+        if (!user ) {
+            return <Navigate to="/signin" />
+        }
     }
-  return props.children
+
+    return children;
 }
 
 export default PrivateRouter

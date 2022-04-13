@@ -1,33 +1,36 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import {SubmitHandler,useForm} from 'react-hook-form'
-import { signin } from '../api/auth'
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
+import { useDispatch } from 'react-redux';
+import { signin } from '../api/auth';
 
 type FormInput={
     email:string,
     password:string|number
 }
-
-const Signin = () => {
+type SigninProp = {
+    onSignin:()=>void
+}
+const Signin = ({onSignin}:SigninProp) => {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
-    if (localStorage.getItem("user")) {
-        navigate("/")
-        toastr.warning("Bạn đã đăng nhập !")
-    }
     const {register,handleSubmit,formState:{errors}} = useForm<FormInput>()
-    const onSubmit:SubmitHandler<FormInput>= async (data)=>{
+    const onSubmit:SubmitHandler<FormInput>= async (dataAuth)=>{
         try {
-            
-            const {data: user } = await signin(data);
-            localStorage.setItem('user', JSON.stringify(user))
-            navigate("/")
+            const {data} = await signin(dataAuth);
+            localStorage.setItem('user', JSON.stringify(data))
             toastr.success("Đăng nhập thành công")
+            if (data.user.role) {
+                navigate("/admin");
+            } else {
+                navigate("/");
+            }
+            onSignin()
         } catch (error:any) {
             toastr.error(error.response.data.message)
         }
-        
     }
   return (
     <div className='w-[400px] mx-auto'>

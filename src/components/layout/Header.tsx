@@ -4,21 +4,14 @@ import { isAuthenticate } from '../../utils/localStorage'
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
 import { getOneUser } from '../../api/users';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAuth } from '../../redux/authSlice';
 
 const Header = () => {
   const {user} =isAuthenticate();
-  const [auth,setAuth] = useState<any>()
-  useEffect(()=>{
-    const getAuth = async()=>{
-        const {data}= await getOneUser(user._id)
-        setAuth(data)
-    }
-    getAuth()
-  },[])
   const navigate = useNavigate()
   const handleLogout = ()=>{
     localStorage.removeItem("user")
-    setAuth(auth.filter((item: { _id: any; }) => item._id !== user._id))
     toastr.success("Bạn đăng xuất thành công")
     navigate("/signin")
   }
@@ -47,12 +40,16 @@ const Header = () => {
                 <div className='mr-[5%]'>
                 <button data-dropdown-toggle="dropdown" className="text-gray-500   font-medium rounded-full text-sm text-center inline-flex items-center" type="button" >
                     <li  className="list-none whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
-                      {auth?.image &&(
-                      <img className="rounded-full w-[60px] h-[60px]" src={`${auth?.image}`}  />
+                      {user?.image &&(
+                      <img className="rounded-full w-[60px] h-[60px]" src={`${user?.image}`}  />
+                      )}
+                      {!user?.image && (
+              
+                      <p ><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3"/><circle cx="12" cy="10" r="3"/><circle cx="12" cy="12" r="10"/></svg></p>
                       )}
                     </li>
                     <li  className="list-none whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
-                      {auth?.name}
+                      {user.name}
                     </li>
                   </button>
                   <div className="hidden bg-white text-base z-50 list-none divide-y w-[10%] divide-gray-100 rounded shadow my-4" id="dropdown">
@@ -61,7 +58,7 @@ const Header = () => {
                       <Link to={user.role ? '/admin' : `/my-account/${user._id}/updateInfo`}>{user.role ?'Admin' : 'Cập nhật Thông tin'}</Link>
                       </li>
                       <li className="text-base font-medium text-gray-500 hover:text-gray-900 block px-4 py-2">
-                        <button onClick={handleLogout}>Logout</button>
+                        <button onClick={()=>handleLogout()}>Logout</button>
                       </li>
                     </ul>
                   </div>

@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react'
-import logo from './logo.svg'
 import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import WebsiteLayout from './pages/layouts/WebsiteLayout'
 import Home from './pages/Home'
-import Products from './pages/user/products/ProductsPage'
 import About from './pages/About'
 import AdminLayout from './pages/layouts/AdminLayout'
 import Dashboard from './pages/admin/Dashboard'
@@ -31,6 +29,8 @@ import DetailNew from './pages/user/news/DetailNew'
 import ProductsPage from './pages/user/products/ProductsPage'
 
 function App() {
+  const [signin,setSignin] = useState(false)
+  const handleSignin =()=> setSignin(!signin)
   return (
     <div className="App">
       <>
@@ -48,11 +48,11 @@ function App() {
             </Route>
             <Route path='cateProduct/:id' element={<DetailCateProduct/>} />
             <Route path='about' element={< About />} />
-            <Route path='signin' element={<Signin/>} />
+            <Route path='signin'  element={< Signin onSignin={handleSignin}/>} />
             <Route path='signup' element={<Signup/>} />
             <Route path='my-account/:id/updateInfo' element={<MyAccount/>}/>
           </Route>
-          <Route path='admin' element={ <PrivateRouter><AdminLayout /></PrivateRouter> }>
+          <Route path='admin' element={ <PrivateRouter page="admin"><AdminLayout /></PrivateRouter> }>
             <Route index element={< Navigate to="dashboard" />} />
             <Route path='dashboard' element={< Dashboard  />} />
             <Route path='products'  >

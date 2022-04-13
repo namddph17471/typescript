@@ -17,7 +17,7 @@ const Signup = () => {
     const onSubmit:SubmitHandler<FormInput>= async (data)=>{
         try {
             await signup(data);
-        navigate('/signin')
+            navigate('/signin')
         toastr.success("Đăng ký thành công")
         } catch (error:any) {
             toastr.error(error.response.data.message)

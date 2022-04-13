@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 import { uploadFile } from "../utils";
 import toastr from "toastr";
 import "toastr/build/toastr.min.css";
-import { getOneUser } from '../api/users'
-import { updateMyAccount } from '../redux/authSlice'
+import { getOneUser, update } from '../api/users'
+import { getAuth, selectAuth, updateMyAccount } from '../redux/authSlice'
+import { isAuthenticate } from '../utils/localStorage';
 
 type FormInput = {
     _id:number,
@@ -17,24 +18,24 @@ type FormInput = {
 }
 
 const MyAccount = () => {
+    const {token,user} = isAuthenticate()
   const _id = useParams().id;
   const{register,handleSubmit,formState:{errors},reset} = useForm<FormInput>()
   const navigate = useNavigate();
-  const dispatch = useDispatch()
   useEffect(()=>{
-    const getInfo = async ()=>{
+    const getAuth = async ()=>{
         const {data} = await getOneUser(_id);
         reset(data)
     }
-    getInfo()
+    getAuth()
 },[])
-
   const onSubmit:SubmitHandler<FormInput> = async (data:any) =>{
       try {
         if (typeof data.image === "object" && data.image.length) {
             data.image = await uploadFile(data.image[0]);
         }
-        dispatch(updateMyAccount(data))   
+        await update(data)  
+        .then(() => localStorage.setItem("user", JSON.stringify({ token, user: data })))
         navigate("/")
         toastr.success("Cập nhật thành công")
       } catch (error:any) {
