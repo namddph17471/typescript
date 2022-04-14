@@ -14,10 +14,12 @@ const PrivateRouter = ({children,page}: PrivateRouterProps) => {
     console.log(user)
     if (page === "admin") {
         if (!user  || !user.role) {
+            toastr.warning("Bạn Không phải admin")
             return <Navigate to="/signin" />
         }
     } else {
         if (!user ) {
+            toastr.warning("bạn chưa đăng nhập")
             return <Navigate to="/signin" />
         }
     }

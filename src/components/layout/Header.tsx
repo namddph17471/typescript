@@ -34,6 +34,15 @@ const Header = () => {
                   <img className="h-[30px] w-auto " src="https://res.cloudinary.com/namddph17471/image/upload/v1645069905/add_to_cart_cart_shopping_cart_shopping_cart_icon_icon-1320073116171330767_xybur6.png"  />
                 </NavLink >
               </nav>
+              {/* <div className="flex rounded-full border-grey-light border">
+                <button>
+                  <span className="w-auto flex justify-end items-center text-grey p-2">
+                    <i className="material-icons text-3xl">search</i>
+                  </span>
+                </button>
+                <input className="w-full rounded mr-4" type="text" placeholder="Search..." />
+              </div> */}
+
               <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
               {user && (
                 <>
