@@ -11,9 +11,12 @@ type PrivateRouterProps = {
 
 const PrivateRouter = ({children,page}: PrivateRouterProps) => {
     const { user } = isAuthenticate();
-    console.log(user)
+    if (!user ) {
+        toastr.warning("bạn chưa đăng nhập")
+        return <Navigate to="/signin" />
+    }
     if (page === "admin") {
-        if (!user  || !user.role) {
+        if (!user.role) {
             toastr.warning("Bạn Không phải admin")
             return <Navigate to="/signin" />
         }

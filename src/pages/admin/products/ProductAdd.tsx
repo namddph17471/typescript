@@ -31,7 +31,6 @@ const ProductAdd = ( )=> {
         try {
             const url= await uploadFile(data.image[0]);
             data.image = url,
-            console.log(data)
             dispatch(createProduct(data))
             toastr.success("Thêm sản phẩm thành công")
             navigate('/admin/products');
