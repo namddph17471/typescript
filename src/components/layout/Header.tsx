@@ -31,7 +31,7 @@ const Header = () => {
                   <NavLink to="/about" className="text-base font-medium text-gray-500 hover:text-gray-900"> Thông tin </NavLink >
                 </div>
                 <NavLink to="/cart" id="cart" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                  <img className="h-[30px] w-auto " src="https://res.cloudinary.com/namddph17471/image/upload/v1645069905/add_to_cart_cart_shopping_cart_shopping_cart_icon_icon-1320073116171330767_xybur6.png"  />
+                  <img className="h-[30px] w-auto " src="https://res.cloudinary.com/namddph17471/image/upload/v1654678573/cart_c1exnm.png"  />
                 </NavLink >
               </nav>
               {/* <div className="flex rounded-full border-grey-light border">
